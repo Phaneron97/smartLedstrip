@@ -1,0 +1,117 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="application/json">
+  </head>
+  <body>
+    <h1>Hello</h1>
+    <button id="onButton" name="onButton">Turn on pin 12</button>
+    <button id="offButton" name="offButton">Turn off pin 12</button>
+    <p>GPIO 12: <span id="gpio12"></span></p> 
+
+    <form action="/submit" method="GET">
+        <label for="name">Name:</label>
+        <input type="text" name="name" id="name">
+        <label for="email">Email:</label>
+        <input type="email" name="email" id="email">
+        <button type="submit">Submit</button>
+    </form>
+    
+
+    <script>
+      // var onButton = document.getElementById('onButton');
+      // var offButton = document.getElementById('offButton');
+
+      // // Load data from JSON file
+      // function fetchJSON() {
+      //   const url = `gpio_states.json`;
+      //   fetch(url)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     // Update webpage with GPIO state data
+      //     document.getElementById('gpio12').innerText = data.gpio12;
+      //   });
+      // }
+      
+      // onButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=12&state=1', true);
+      //   xhr.send();
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
+
+      // offButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=12&state=0', true);
+      //   xhr.send();
+
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
+
+       ////////////////////////////////////////////////////////////////////
+
+        class GPIOController {
+          constructor() {
+              this.url = 'gpio_states.json';
+              this.pin = 12;
+              this.state = 0;
+          }
+
+          fetchJSON() {
+              fetch(this.url)
+                  .then(response => response.json())
+                  .then(data => {
+                      // Update webpage with GPIO state data
+                      document.getElementById(`gpio${this.pin}`).innerText = data[`gpio${this.pin}`];
+                  });
+          }
+      }
+
+      class GPIOOnController extends GPIOController {
+          turnOn() {
+              this.state = 1;
+              const xhr = new XMLHttpRequest();
+              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
+              xhr.send();
+          }
+      }
+
+      class GPIOOffController extends GPIOController {
+          turnOff() {
+              this.state = 0;
+              const xhr = new XMLHttpRequest();
+              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
+              xhr.send();
+          }
+      }
+
+      class GPIOAutoController extends GPIOController {
+          sendRequest() {
+              const xhr = new XMLHttpRequest();
+              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
+              xhr.send();
+              this.fetchJSON();
+              setInterval(() => this.fetchJSON(), 500);
+          }
+      }
+
+      const gpioOnController = new GPIOOnController();
+      onButton.addEventListener('click', () => gpioOnController.turnOn());
+
+      const gpioOffController = new GPIOOffController();
+      offButton.addEventListener('click', () => gpioOffController.turnOff());
+
+      const gpioAutoController = new GPIOAutoController();
+      gpioAutoController.sendRequest();
+  </script>
+
+<!-- <script>
+  // Load data from JSON file
+      // Fetch the JSON data from the file
+
+</script> -->
+  </body>
+</html>

@@ -1,0 +1,17 @@
+from flup.server.fcgi import WSGIServer
+from subprocess import Popen, PIPE, call
+
+def application(environ, start_response):
+    status = '200 OK'
+
+    call(['gpio', 'mode', '12', 'out'])
+    call(['gpio', 'toggle', '12'])
+
+    response_headers = [('Content-type', 'text/plain'),
+                        ('Content-Length', str(0))]
+
+    start_response(status, response_headers)
+    return []
+
+if __name__ == '__main__':
+    WSGIServer(application).run()</p>
