@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-20T10:42:47.826Z" agent="5.0 (Windows)" etag="T7gofat8bWoR9pO51fWr" version="21.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-20T10:43:54.146Z" agent="5.0 (Windows)" etag="jk1c689IzI3d1dRxJT5O" version="21.0.8" type="github">
   <diagram name="Page-1" id="7BwSued-1_67GHoV4uQD">
     <mxGraphModel dx="1434" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -49,10 +49,11 @@
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;BrightnessPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ field: Type&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ method(): Type&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="590" y="405" width="160" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="WhAeDwXJVbieLF7c16lW-1" value="" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ToB2sX0DJLOh8DXCZbh_-3" target="ToB2sX0DJLOh8DXCZbh_-4" edge="1">
-          <mxGeometry width="50" height="50" relative="1" as="geometry">
+        <mxCell id="WhAeDwXJVbieLF7c16lW-1" value="&lt;div&gt;1&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;1&lt;br&gt;&lt;/div&gt;" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ToB2sX0DJLOh8DXCZbh_-3" target="ToB2sX0DJLOh8DXCZbh_-4" edge="1">
+          <mxGeometry x="0.0909" y="15" width="50" height="50" relative="1" as="geometry">
             <mxPoint x="440" y="320" as="sourcePoint" />
             <mxPoint x="490" y="270" as="targetPoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
         <mxCell id="WhAeDwXJVbieLF7c16lW-2" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="ToB2sX0DJLOh8DXCZbh_-5" target="ToB2sX0DJLOh8DXCZbh_-4" edge="1">
