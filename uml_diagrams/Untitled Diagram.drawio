@@ -1,4 +1,4 @@
-<mxfile host="app.diagrams.net" modified="2023-03-22T16:10:11.984Z" agent="5.0 (Windows)" etag="iCvMJoT8F15LgdiKb2Ki" version="21.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-22T16:50:50.551Z" agent="5.0 (Windows)" etag="npQFmfCjMFvj2gOfEqzh" version="21.0.8" type="github">
   <diagram name="Page-1" id="7BwSued-1_67GHoV4uQD">
     <mxGraphModel dx="2284" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
@@ -8,7 +8,7 @@
           <mxGeometry x="-160" y="670" width="610" height="230" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-22" value="Backend Python" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry y="30" width="450" height="620" as="geometry" />
+          <mxGeometry y="30" width="450" height="630" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Led&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- PWMpin: Led&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ On(): &lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Off():&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Brighness()&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="70" y="70" width="150" height="110" as="geometry" />
@@ -17,7 +17,7 @@
           <mxGeometry x="70" y="250" width="150" height="100" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LEDController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- led_strip: objectLEDStrip&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Effect(): Lightingeffects&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="70" y="405" width="150" height="105" as="geometry" />
+          <mxGeometry x="70" y="400" width="150" height="105" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LightingEffects&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Strobe()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Fade()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Pulse()&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="250" y="240" width="150" height="110" as="geometry" />
@@ -47,7 +47,7 @@
             <mxPoint x="340" y="390" as="sourcePoint" />
             <mxPoint x="500" y="390" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="320" y="467" />
+              <mxPoint x="320" y="462" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
@@ -60,7 +60,7 @@
             <mxPoint x="20" y="600" as="sourcePoint" />
             <mxPoint x="180" y="600" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="-45" y="595" />
+              <mxPoint x="-45" y="605" />
             </Array>
           </mxGeometry>
         </mxCell>
@@ -69,19 +69,26 @@
             <mxPoint x="159" y="524" as="sourcePoint" />
             <mxPoint x="39" y="642" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="325" y="595" />
+              <mxPoint x="325" y="605" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="BqMquUOgj23icGRiplnc-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;HTTPRequestHandler&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Get_Data(): self&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="70" y="550" width="150" height="90" as="geometry" />
+        <mxCell id="BqMquUOgj23icGRiplnc-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;HTTPRequestHandler&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Get_Data()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Send_Data()&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="70" y="560" width="150" height="90" as="geometry" />
         </mxCell>
         <mxCell id="BqMquUOgj23icGRiplnc-6" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BqMquUOgj23icGRiplnc-2" target="ToB2sX0DJLOh8DXCZbh_-21">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="80" y="585" as="sourcePoint" />
             <mxPoint x="-35" y="762" as="targetPoint" />
             <Array as="points" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BqMquUOgj23icGRiplnc-8" value="&lt;div&gt;1&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;1&lt;br&gt;&lt;/div&gt;" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ToB2sX0DJLOh8DXCZbh_-4" target="BqMquUOgj23icGRiplnc-2">
+          <mxGeometry x="0.0909" y="15" width="50" height="50" relative="1" as="geometry">
+            <mxPoint x="360" y="495" as="sourcePoint" />
+            <mxPoint x="360" y="550" as="targetPoint" />
+            <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
       </root>
