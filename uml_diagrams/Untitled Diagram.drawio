@@ -1,14 +1,14 @@
-<mxfile host="app.diagrams.net" modified="2023-03-20T15:55:11.774Z" agent="5.0 (Windows)" etag="FDLaryEY9KNbXpWn36eu" version="21.0.8" type="github">
+<mxfile host="app.diagrams.net" modified="2023-03-22T16:10:11.984Z" agent="5.0 (Windows)" etag="iCvMJoT8F15LgdiKb2Ki" version="21.0.8" type="github">
   <diagram name="Page-1" id="7BwSued-1_67GHoV4uQD">
     <mxGraphModel dx="2284" dy="764" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-23" value="Frontend JS" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="-160" y="540" width="610" height="230" as="geometry" />
+          <mxGeometry x="-160" y="670" width="610" height="230" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-22" value="Backend Python" style="verticalAlign=top;align=left;spacingTop=8;spacingLeft=2;spacingRight=12;shape=cube;size=10;direction=south;fontStyle=4;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry y="30" width="450" height="490" as="geometry" />
+          <mxGeometry y="30" width="450" height="620" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;Led&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- PWMpin: Led&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ On(): &lt;br&gt;&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Off():&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Brighness()&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="70" y="70" width="150" height="110" as="geometry" />
@@ -16,8 +16,8 @@
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-3" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LEDStrip&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- num_leds: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- leds: LED &amp;lt;list&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Color(): leds&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="70" y="250" width="150" height="100" as="geometry" />
         </mxCell>
-        <mxCell id="ToB2sX0DJLOh8DXCZbh_-4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LEDController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- led_strip: objectLEDStrip&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Effect(): Lightingeffects&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="70" y="405" width="150" height="100" as="geometry" />
+        <mxCell id="ToB2sX0DJLOh8DXCZbh_-4" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LEDController&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- led_strip: objectLEDStrip&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Effect(): Lightingeffects&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="70" y="405" width="150" height="105" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-5" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;LightingEffects&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Strobe()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Fade()&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Pulse()&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
           <mxGeometry x="250" y="240" width="150" height="110" as="geometry" />
@@ -29,11 +29,11 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="ToB2sX0DJLOh8DXCZbh_-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;ColorPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- colors: &amp;lt;list&amp;gt;&lt;span style=&quot;white-space: pre;&quot;&gt;	&lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Color(): list&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="70" y="620" width="150" height="90" as="geometry" />
+        <mxCell id="ToB2sX0DJLOh8DXCZbh_-21" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;ColorPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- colors: &amp;lt;list&amp;gt;&lt;span style=&quot;white-space: pre;&quot;&gt; &lt;/span&gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Color(): list&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="70" y="750" width="150" height="90" as="geometry" />
         </mxCell>
         <mxCell id="ToB2sX0DJLOh8DXCZbh_-25" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;BrightnessPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- brightnessNum: Int&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_Brightness(): int&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
-          <mxGeometry x="-110" y="620" width="150" height="90" as="geometry" />
+          <mxGeometry x="-110" y="750" width="150" height="90" as="geometry" />
         </mxCell>
         <mxCell id="WhAeDwXJVbieLF7c16lW-1" value="&lt;div&gt;1&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;1&lt;br&gt;&lt;/div&gt;" style="endArrow=none;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="ToB2sX0DJLOh8DXCZbh_-3" target="ToB2sX0DJLOh8DXCZbh_-4" edge="1">
           <mxGeometry x="0.0909" y="15" width="50" height="50" relative="1" as="geometry">
@@ -42,45 +42,46 @@
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_0VHvwPbKVFUT2wmXTVL-1" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.46;exitY=0.991;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.59;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ToB2sX0DJLOh8DXCZbh_-5" target="ToB2sX0DJLOh8DXCZbh_-4">
-          <mxGeometry x="0.2623" width="160" relative="1" as="geometry">
+        <mxCell id="_0VHvwPbKVFUT2wmXTVL-1" value="Extends" style="endArrow=block;endSize=16;endFill=0;html=1;rounded=0;exitX=0.46;exitY=0.991;exitDx=0;exitDy=0;exitPerimeter=0;entryX=1;entryY=0.59;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="ToB2sX0DJLOh8DXCZbh_-5" target="ToB2sX0DJLOh8DXCZbh_-4" edge="1">
+          <mxGeometry x="0.2667" width="160" relative="1" as="geometry">
             <mxPoint x="340" y="390" as="sourcePoint" />
             <mxPoint x="500" y="390" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="320" y="464" />
+              <mxPoint x="320" y="467" />
             </Array>
             <mxPoint as="offset" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="_0VHvwPbKVFUT2wmXTVL-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;EffectPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- effectID: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- effects: &amp;lt;list&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_effect(): list&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
-          <mxGeometry x="250" y="620" width="150" height="90" as="geometry" />
+        <mxCell id="_0VHvwPbKVFUT2wmXTVL-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;EffectPicker&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- effectID: int&lt;/p&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;- effects: &amp;lt;list&amp;gt;&lt;br&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Set_effect(): list&lt;br&gt;&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" parent="1" vertex="1">
+          <mxGeometry x="250" y="750" width="150" height="90" as="geometry" />
         </mxCell>
-        <mxCell id="_0VHvwPbKVFUT2wmXTVL-3" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.25;exitY=1;exitDx=0;exitDy=0;entryX=0.431;entryY=0.022;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1" source="ToB2sX0DJLOh8DXCZbh_-4" target="ToB2sX0DJLOh8DXCZbh_-25">
+        <mxCell id="_0VHvwPbKVFUT2wmXTVL-3" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.431;entryY=0.022;entryDx=0;entryDy=0;entryPerimeter=0;" parent="1" source="BqMquUOgj23icGRiplnc-2" target="ToB2sX0DJLOh8DXCZbh_-25" edge="1">
           <mxGeometry width="160" relative="1" as="geometry">
             <mxPoint x="20" y="600" as="sourcePoint" />
             <mxPoint x="180" y="600" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="108" y="580" />
-              <mxPoint x="-45" y="580" />
+              <mxPoint x="-45" y="595" />
             </Array>
           </mxGeometry>
         </mxCell>
-        <mxCell id="_0VHvwPbKVFUT2wmXTVL-4" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1" source="ToB2sX0DJLOh8DXCZbh_-4" target="ToB2sX0DJLOh8DXCZbh_-21">
-          <mxGeometry width="160" relative="1" as="geometry">
-            <mxPoint x="140" y="510" as="sourcePoint" />
-            <mxPoint x="29" y="632" as="targetPoint" />
-            <Array as="points" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="_0VHvwPbKVFUT2wmXTVL-5" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ToB2sX0DJLOh8DXCZbh_-4" target="_0VHvwPbKVFUT2wmXTVL-2">
-          <mxGeometry x="0.2212" width="160" relative="1" as="geometry">
+        <mxCell id="_0VHvwPbKVFUT2wmXTVL-5" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" parent="1" source="BqMquUOgj23icGRiplnc-2" target="_0VHvwPbKVFUT2wmXTVL-2" edge="1">
+          <mxGeometry x="0.0769" width="160" relative="1" as="geometry">
             <mxPoint x="159" y="524" as="sourcePoint" />
             <mxPoint x="39" y="642" as="targetPoint" />
             <Array as="points">
-              <mxPoint x="183" y="580" />
-              <mxPoint x="325" y="580" />
+              <mxPoint x="325" y="595" />
             </Array>
             <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="BqMquUOgj23icGRiplnc-2" value="&lt;p style=&quot;margin:0px;margin-top:4px;text-align:center;&quot;&gt;&lt;b&gt;HTTPRequestHandler&lt;/b&gt;&lt;/p&gt;&lt;hr size=&quot;1&quot;&gt;&lt;hr size=&quot;1&quot;&gt;&lt;p style=&quot;margin:0px;margin-left:4px;&quot;&gt;+ Get_Data(): self&lt;/p&gt;" style="verticalAlign=top;align=left;overflow=fill;fontSize=12;fontFamily=Helvetica;html=1;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="70" y="550" width="150" height="90" as="geometry" />
+        </mxCell>
+        <mxCell id="BqMquUOgj23icGRiplnc-6" value="Use" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="BqMquUOgj23icGRiplnc-2" target="ToB2sX0DJLOh8DXCZbh_-21">
+          <mxGeometry width="160" relative="1" as="geometry">
+            <mxPoint x="80" y="585" as="sourcePoint" />
+            <mxPoint x="-35" y="762" as="targetPoint" />
+            <Array as="points" />
           </mxGeometry>
         </mxCell>
       </root>
