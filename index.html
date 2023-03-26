@@ -5,36 +5,78 @@
     <meta http-equiv="Content-Type" content="application/json">
   </head>
   <body>
-    <h1>Hello</h1>
-    <button id="onButton" name="onButton">Turn on pin 12</button>
-    <button id="offButton" name="offButton">Turn off pin 12</button>
+    <h1>Ledstrip</h1>
+    <h2>Red</h2>
+    <button id="RedOnButton" name="RedOnButton">ON</button>
+    <button id="RedOffButton" name="RedOffButton">OFF</button><br>
+    <button id="RedPulseOnButton" name="RedPulseOnButton">Pulse ON</button>
+    <button id="RedPulseOffButton" name="RedPulseOffButton">Pulse OFF</button><br>
+    <button id="RedFadeOutOnButton" name="RedFadeOutOnButton">Fade out ON</button>
+    <button id="RedFadeOutOffButton" name="RedFadeOutOffButton">Fade out OFF</button><br>
+    <button id="RedFadeInOnButton" name="RedFadeInOnButton">Fade in ON</button>
+    <button id="RedFadeInOffButton" name="RedFadeInOffButton">Fade in OFF</button><br>
+
+    <h2>Green</h2>
+    <button id="GreenOnButton" name="GreenOnButton">ON</button>
+    <button id="GreenOffButton" name="GreenOffButton">OFF</button><br>
+    <button id="GreenPulseOnButton" name="GreenPulseOnButton">Pulse ON</button>
+    <button id="GreenPulseOffButton" name="GreenPulseOffButton">Pulse OFF</button><br>
+    <button id="GreenFadeOutOnButton" name="GreenFadeOutOnButton">Fade out ON</button>
+    <button id="GreenFadeOutOffButton" name="GreenFadeOutOffButton">Fade out OFF</button><br>
+    <button id="GreenFadeInOnButton" name="GreenFadeInOnButton">Fade in ON</button>
+    <button id="GreenFadeInOffButton" name="GreenFadeInOffButton">Fade in OFF</button><br>
+
+    <h2>Blue</h2>
+    <button id="BlueOnButton" name="BlueOnButton">ON</button>
+    <button id="BlueOffButton" name="BlueOffButton">OFF</button><br>
+    <button id="BluePulseOnButton" name="BluePulseOnButton">Pulse ON</button>
+    <button id="BluePulseOffButton" name="BluePulseOffButton">Pulse OFF</button><br>
+    <button id="BlueFadeOutOnButton" name="BlueFadeOutOnButton">Fade out ON</button>
+    <button id="BlueFadeOutOffButton" name="BlueFadeOutOffButton">Fade out OFF</button><br>
+    <button id="BlueFadeInOnButton" name="BlueFadeInOnButton">Fade in ON</button>
+    <button id="BlueFadeInOffButton" name="BlueFadeInOffButton">Fade in OFF</button><br>
+
+
+    <h2>Premade effects</h2>
+    <button id="Fireplace" name="Fireplace">Fireplace</button><br>
+
     <p>GPIO 12: <span id="gpio12"></span></p> 
 
-    <form action="/submit" method="GET">
+    <!-- <form action="/submit" method="GET">
         <label for="name">Name:</label>
         <input type="text" name="name" id="name">
         <label for="email">Email:</label>
         <input type="email" name="email" id="email">
         <button type="submit">Submit</button>
-    </form>
+    </form> -->
     
 
     <script>
-      // var onButton = document.getElementById('onButton');
-      // var offButton = document.getElementById('offButton');
+      var RedOnButton = document.getElementById('RedOnButton');
+      var RedOffButton = document.getElementById('RedOffButton');
 
-      // // Load data from JSON file
-      // function fetchJSON() {
-      //   const url = `gpio_states.json`;
-      //   fetch(url)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     // Update webpage with GPIO state data
-      //     document.getElementById('gpio12').innerText = data.gpio12;
-      //   });
+      var GreenOnButton = document.getElementById('GreenOnButton');
+      var GreenOffButton = document.getElementById('GreenOffButton');
+
+      var BlueOnButton = document.getElementById('BlueOnButton');
+      var BlueOffButton = document.getElementById('BlueOffButton');
+
+      // Load data from JSON file
+      function fetchJSON() {
+        const url = `gpio_states.json`;
+        fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          // Update webpage with GPIO state data
+          document.getElementById('gpio12').innerText = data.gpio12;
+        });
+      }
+
+      // function sendRequest(pin, state) {
+
       // }
       
-      // onButton.addEventListener('click', function() {
+      // RedOnButton.addEventListener('click', function() {
       //   var xhr = new XMLHttpRequest();
       //   xhr.open('GET', '/gpio?pin=12&state=1', true);
       //   xhr.send();
@@ -42,7 +84,7 @@
       //   setInterval(fetchJSON, 500);
       // });
 
-      // offButton.addEventListener('click', function() {
+      // RedOffButton.addEventListener('click', function() {
       //   var xhr = new XMLHttpRequest();
       //   xhr.open('GET', '/gpio?pin=12&state=0', true);
       //   xhr.send();
@@ -51,61 +93,54 @@
       //   setInterval(fetchJSON, 500);
       // });
 
-       ////////////////////////////////////////////////////////////////////
+      // GreenOnButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=13&state=1', true);
+      //   xhr.send();
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
 
-        class GPIOController {
-          constructor() {
-              this.url = 'gpio_states.json';
-              this.pin = 12;
-              this.state = 0;
-          }
+      // GreenOffButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=13&state=0', true);
+      //   xhr.send();
 
-          fetchJSON() {
-              fetch(this.url)
-                  .then(response => response.json())
-                  .then(data => {
-                      // Update webpage with GPIO state data
-                      document.getElementById(`gpio${this.pin}`).innerText = data[`gpio${this.pin}`];
-                  });
-          }
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
+
+      // BlueOnButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=18&state=1', true);
+      //   xhr.send();
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
+
+      // BlueOffButton.addEventListener('click', function() {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', '/gpio?pin=18&state=0', true);
+      //   xhr.send();
+
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // });
+
+      function sendCommand(pin, state) {
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', `/gpio?pin=${pin}&state=${state}`, true);
+        xhr.send();
+        fetchJSON();
+        setInterval(fetchJSON, 500);
       }
 
-      class GPIOOnController extends GPIOController {
-          turnOn() {
-              this.state = 1;
-              const xhr = new XMLHttpRequest();
-              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
-              xhr.send();
-          }
-      }
-
-      class GPIOOffController extends GPIOController {
-          turnOff() {
-              this.state = 0;
-              const xhr = new XMLHttpRequest();
-              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
-              xhr.send();
-          }
-      }
-
-      class GPIOAutoController extends GPIOController {
-          sendRequest() {
-              const xhr = new XMLHttpRequest();
-              xhr.open('GET', `/gpio?pin=${this.pin}&state=${this.state}`, true);
-              xhr.send();
-              this.fetchJSON();
-              setInterval(() => this.fetchJSON(), 500);
-          }
-      }
-
-      const gpioOnController = new GPIOOnController();
-      onButton.addEventListener('click', () => gpioOnController.turnOn());
-
-      const gpioOffController = new GPIOOffController();
-      offButton.addEventListener('click', () => gpioOffController.turnOff());
-
-      const gpioAutoController = new GPIOAutoController();
-      gpioAutoController.sendRequest();
+      RedOnButton.addEventListener('click', () => sendCommand(12, 1));
+      RedOffButton.addEventListener('click', () => sendCommand(12, 0));
+      GreenOnButton.addEventListener('click', () => sendCommand(13, 1));
+      GreenOffButton.addEventListener('click', () => sendCommand(13, 0));
+      BlueOnButton.addEventListener('click', () => sendCommand(18, 1));
+      BlueOffButton.addEventListener('click', () => sendCommand(18, 0));
   </script>
 
 <!-- <script>
