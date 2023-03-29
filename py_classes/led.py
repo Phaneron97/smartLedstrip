@@ -24,6 +24,12 @@ class LED:
     def set_sleep(self, sleeptime):
         time.sleep(sleeptime)
 
+
+############# new class ###################
+
+
+
+
 # class LED:
 #     def __init__(self, pin):
 #         self.pin = pin
