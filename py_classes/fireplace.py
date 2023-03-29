@@ -59,29 +59,29 @@ class Fireplace:
         self.green_pin = green_pin
         self.blue_pin = blue_pin
 
-    def flicker(self):
+    def flicker(self, red_duty_cycle, red_frequency, green_duty_cycle, green_frequency, blue_duty_cycle, blue_frequency, sleep_time):
         for led in self.leds:
             # Randomly generate duty cycle and frequency values for each LED
             if led.pin == self.red_pin:
-                duty_cycle = random.uniform(20, 100)
-                frequency = random.uniform(50, 100)
+                led.set_duty_cycle(red_duty_cycle)
+                led.set_frequency(red_frequency)
             elif led.pin == self.green_pin:
-                duty_cycle = random.uniform(0, 3)
-                frequency = random.uniform(90, 100)
+                led.set_duty_cycle(green_duty_cycle)
+                led.set_frequency(green_frequency)
             elif led.pin == self.blue_pin:
-                duty_cycle = random.uniform(0, 1)
-                frequency = random.uniform(90, 100)
+                led.set_duty_cycle(blue_duty_cycle)
+                led.set_frequency(blue_frequency)
             else:
                 print("no led found")
 
-            led.set_duty_cycle(duty_cycle)
-            led.set_frequency(frequency)
-            led.set_sleep(random.uniform(0.05, 0.15))
+            # led.set_duty_cycle(duty_cycle)
+            # led.set_frequency(frequency)
+            led.set_sleep(sleep_time)
 
-    def start(self):
+    def start(self, red_duty_cycle, red_frequency, green_duty_cycle, green_frequency, blue_duty_cycle, blue_frequency, sleep_time):
         try:
             while True:
-                self.flicker()
+                self.flicker(red_duty_cycle, red_frequency, green_duty_cycle, green_frequency, blue_duty_cycle, blue_frequency, sleep_time)
                 # self.time.sleep(random.uniform(0.08, 0.15))
         except KeyboardInterrupt:
             for led in self.leds:

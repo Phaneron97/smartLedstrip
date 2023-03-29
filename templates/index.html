@@ -2,10 +2,48 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
-    <meta http-equiv="Content-Type" content="application/json">
+    <!-- <meta http-equiv="Content-Type" content="application/json"> -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <style>
+      .slidecontainer {
+        width: 100%;
+      }
+      
+      .slider {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 25px;
+        background: #d3d3d3;
+        outline: none;
+        opacity: 0.7;
+        -webkit-transition: .2s;
+        transition: opacity .2s;
+      }
+      
+      .slider:hover {
+        opacity: 1;
+      }
+      
+      .slider::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 25px;
+        height: 25px;
+        background: #04AA6D;
+        cursor: pointer;
+      }
+      
+      .slider::-moz-range-thumb {
+        width: 25px;
+        height: 25px;
+        background: #04AA6D;
+        cursor: pointer;
+      }
+      </style>
+
   </head>
   <body>
-    <h1>Ledstrip</h1>
+    <!-- <h1>Ledstrip</h1>
     <h2>Red</h2>
     <button id="RedOnButton" name="RedOnButton">ON</button>
     <button id="RedOffButton" name="RedOffButton">OFF</button><br>
@@ -34,13 +72,39 @@
     <button id="BlueFadeOutOnButton" name="BlueFadeOutOnButton">Fade out ON</button>
     <button id="BlueFadeOutOffButton" name="BlueFadeOutOffButton">Fade out OFF</button><br>
     <button id="BlueFadeInOnButton" name="BlueFadeInOnButton">Fade in ON</button>
-    <button id="BlueFadeInOffButton" name="BlueFadeInOffButton">Fade in OFF</button><br>
+    <button id="BlueFadeInOffButton" name="BlueFadeInOffButton">Fade in OFF</button><br> -->
+
+    <h1>Fireplace</h1>
+    
+    <form action="{{ url_for('process_form') }}" method="post">
+      <!-- <input type="text" name="projectFilepath">
+      <input type="submit">
+  </form> -->
+  
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="testName">
+      <label for="testSlider">Default range slider:</label>
+      <input type="range" min="1" max="100" value="50" name="testSlider">
+      
+      <input type="submit" value="Submit">
+    </form>
+    <p>Value: <span id="demo"></span></p>
+
+    <script>
+      var slider = document.getElementById("testSlider");
+      var output = document.getElementById("demo");
+      output.innerHTML = slider.value;
+      
+      slider.oninput = function() {
+        output.innerHTML = this.value;
+      }
+    </script>
 
 
-    <h2>Premade effects</h2>
+    <!-- <h2>Premade effects</h2>
     <button id="Fireplace" name="Fireplace">Fireplace</button><br>
 
-    <p>GPIO 12: <span id="gpio12"></span></p> 
+    <p>GPIO 12: <span id="gpio12"></span></p>  -->
 
     <!-- <form action="/submit" method="GET">
         <label for="name">Name:</label>
@@ -52,25 +116,25 @@
     
 
     <script>
-      var RedOnButton = document.getElementById('RedOnButton');
-      var RedOffButton = document.getElementById('RedOffButton');
+      // var RedOnButton = document.getElementById('RedOnButton');
+      // var RedOffButton = document.getElementById('RedOffButton');
 
-      var GreenOnButton = document.getElementById('GreenOnButton');
-      var GreenOffButton = document.getElementById('GreenOffButton');
+      // var GreenOnButton = document.getElementById('GreenOnButton');
+      // var GreenOffButton = document.getElementById('GreenOffButton');
 
-      var BlueOnButton = document.getElementById('BlueOnButton');
-      var BlueOffButton = document.getElementById('BlueOffButton');
+      // var BlueOnButton = document.getElementById('BlueOnButton');
+      // var BlueOffButton = document.getElementById('BlueOffButton');
 
-      // Load data from JSON file
-      function fetchJSON() {
-        const url = `gpio_states.json`;
-        fetch(url)
-        .then(response => response.json())
-        .then(data => {
-          // Update webpage with GPIO state data
-          document.getElementById('gpio12').innerText = data.gpio12;
-        });
-      }
+      // // Load data from JSON file
+      // function fetchJSON() {
+      //   const url = `gpio_states.json`;
+      //   fetch(url)
+      //   .then(response => response.json())
+      //   .then(data => {
+      //     // Update webpage with GPIO state data
+      //     document.getElementById('gpio12').innerText = data.gpio12;
+      //   });
+      // }
 
       // function sendRequest(pin, state) {
 
@@ -127,20 +191,20 @@
       //   setInterval(fetchJSON, 500);
       // });
 
-      function sendCommand(pin, state) {
-        var xhr = new XMLHttpRequest();
-        xhr.open('GET', `/gpio?pin=${pin}&state=${state}`, true);
-        xhr.send();
-        fetchJSON();
-        setInterval(fetchJSON, 500);
-      }
+      // function sendCommand(pin, state) {
+      //   var xhr = new XMLHttpRequest();
+      //   xhr.open('GET', `/gpio?pin=${pin}&state=${state}`, true);
+      //   xhr.send();
+      //   fetchJSON();
+      //   setInterval(fetchJSON, 500);
+      // }
 
-      RedOnButton.addEventListener('click', () => sendCommand(12, 1));
-      RedOffButton.addEventListener('click', () => sendCommand(12, 0));
-      GreenOnButton.addEventListener('click', () => sendCommand(13, 1));
-      GreenOffButton.addEventListener('click', () => sendCommand(13, 0));
-      BlueOnButton.addEventListener('click', () => sendCommand(18, 1));
-      BlueOffButton.addEventListener('click', () => sendCommand(18, 0));
+      // RedOnButton.addEventListener('click', () => sendCommand(12, 1));
+      // RedOffButton.addEventListener('click', () => sendCommand(12, 0));
+      // GreenOnButton.addEventListener('click', () => sendCommand(13, 1));
+      // GreenOffButton.addEventListener('click', () => sendCommand(13, 0));
+      // BlueOnButton.addEventListener('click', () => sendCommand(18, 1));
+      // BlueOffButton.addEventListener('click', () => sendCommand(18, 0));
   </script>
 
 <!-- <script>

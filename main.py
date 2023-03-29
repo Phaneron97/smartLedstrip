@@ -9,11 +9,11 @@ pins = [12, 13, 18]
 
 ############# Fireplace ###################
 
-# # Create a Fireplace object with the three PWM pins
-# fireplace = Fireplace(red_pin, green_pin, blue_pin)
+# Create a Fireplace object with the three PWM pins
+fireplace = Fireplace(red_pin, green_pin, blue_pin)
 
-# # Start the fireplace effect
-# fireplace.start()
+# Start the fireplace effect
+fireplace.start()
 
 
 ################ Rainbow ###################
@@ -47,6 +47,6 @@ colors = [
 # (100, 75, 0),
 # (100, 25, 0),    
 
-rainbow = Rainbow(red_pin, green_pin, blue_pin, colors)
+# rainbow = Rainbow(red_pin, green_pin, blue_pin, colors)
 
-rainbow.start()
+# rainbow.start()
