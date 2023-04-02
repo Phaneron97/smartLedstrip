@@ -4,43 +4,104 @@
   <head>
     <!-- <meta http-equiv="Content-Type" content="application/json"> -->
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <style>
-      .slidecontainer {
-        width: 100%;
-      }
-      
-      .slider {
-        -webkit-appearance: none;
-        width: 100%;
-        height: 25px;
-        background: #d3d3d3;
-        outline: none;
-        opacity: 0.7;
-        -webkit-transition: .2s;
-        transition: opacity .2s;
-      }
-      
-      .slider:hover {
-        opacity: 1;
-      }
-      
-      .slider::-webkit-slider-thumb {
-        -webkit-appearance: none;
-        appearance: none;
-        width: 25px;
-        height: 25px;
-        background: #04AA6D;
-        cursor: pointer;
-      }
-      
-      .slider::-moz-range-thumb {
-        width: 25px;
-        height: 25px;
-        background: #04AA6D;
-        cursor: pointer;
-      }
-      </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+    <script>
+      $(function() {
+  function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue) {
+    var lowerValue = parseInt($(lowerInput).val());
+    var higherValue = parseInt($(higherInput).val());
 
+    $(sliderContainer).slider({
+      range: true,
+      min: minValue,
+      max: maxValue,
+      values: [lowerValue, higherValue],
+      slide: function(event, ui) {
+        if (ui.values[0] >= ui.values[1]) {
+          return false;
+        }
+        $(lowerInput).val(ui.values[0]);
+        $(higherInput).val(ui.values[1]);
+      }
+    });
+
+    $(lowerInput).change(function() {
+      var value = parseInt($(this).val());
+      if (value < $(sliderContainer).slider("option", "min")) {
+        value = $(sliderContainer).slider("option", "min");
+      } else if (value > $(higherInput).val()) {
+        value = $(higherInput).val();
+      }
+      $(sliderContainer).slider("values", 0, value);
+      $(this).val(value);
+    });
+
+    $(higherInput).change(function() {
+      var value = parseInt($(this).val());
+      if (value > $(sliderContainer).slider("option", "max")) {
+        value = $(sliderContainer).slider("option", "max");
+      } else if (value < $(lowerInput).val()) {
+        value = $(lowerInput).val();
+      }
+      $(sliderContainer).slider("values", 1, value);
+      $(this).val(value);
+    });
+  }     
+
+        // var minDefaultValue = 0;
+        // var maxDefaultValue = 100;
+        createSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed", 0, 100);
+        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 0, 100);
+
+        createSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen", 0, 100);
+        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 0, 100);
+
+        createSlider("#brightnessBlue", "#minBrightnessBlue", "#maxBrightnessBlue", 0, 100);
+        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 0, 100);
+
+        // createSlider("#sleep", "#minSleep", "#maxSleep", 0, 0.5);
+      });
+
+
+      // function createSlider(sliderId, amountId, minValue, maxValue, startValues) {
+      //   $( "#" + sliderId ).slider({
+      //     range: true,
+      //     min: minValue,
+      //     max: maxValue,
+      //     values: startValues,
+      //     slide: function( event, ui ) {
+      //       $( "#" + amountId ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      //     }
+      //   });
+      //   $( "#" + amountId ).val( "$" + $( "#" + sliderId ).slider( "values", 0 ) +
+      //     " - $" + $( "#" + sliderId ).slider( "values", 1 ) );
+      // }
+      
+      // $( function() {
+      //   $( "#slider-range" ).slider({
+      //     range: true,
+      //     min: 0,
+      //     max: 100,
+      //     values: [ 75, 300 ],
+      //     slide: function( event, ui ) {
+      //       $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
+      //       $( "#slider-values" ).val(ui.values[0] + "," + ui.values[1]);
+      //     }
+      //   });
+        
+      //   // Set the initial values for the slider and the hidden input element
+      //   $( "#slider-values" ).val($( "#slider-range" ).slider( "values", 0 ) + "," + $( "#slider-range" ).slider( "values", 1 ));
+      //   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
+      //     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
+      // });
+    </script>
+    <style>
+      .slider {
+        width:25%;
+      }
+    </style>
   </head>
   <body>
     <!-- <h1>Ledstrip</h1>
@@ -81,49 +142,101 @@
       <input type="submit">
   </form> -->
   
-      <label for="name">Name:</label>
-      <input type="text" id="name" name="testName">
-      <label for="testSlider">Default range slider:</label>
-      <input type="range" min="1" max="100" value="50" name="testSlider">
+      <!-- <label for="name">Name:</label> -->
+      <!-- <input type="text" id="name" name="testName"> -->
+      <!-- <label for="testSlider">Default range slider:</label> -->
+      <!-- <input type="range" min="1" max="100" value="50" name="testSlider"> -->
       
-      <input type="submit" value="Submit">
-    </form>
-    <p>Value: <span id="demo"></span></p>
+      <!-- <div id="slider-range"></div> -->
+      <!-- <input type="hidden" id="slider-values" name="sliderValues"> -->
+      <!-- <input type="hidden" id="slider-values" name="testSlider">
+      <input type="submit" value="Submit"> -->
 
-    <script>
-      var slider = document.getElementById("testSlider");
-      var output = document.getElementById("demo");
-      output.innerHTML = slider.value;
+
+      <!-- <label for="red_duty_cycle_slider">Slider 1:</label>
+      <div id="red_duty_cycle_slider></div>
+      <input type="text" id="red_duty_cycle_slider" readonly style="border:0; color:#f6931f; font-weight:bold;">
+      <br><br>
       
-      slider.oninput = function() {
-        output.innerHTML = this.value;
-      }
-    </script>
+      <label for="red_frequency_slider">Slider 2:</label>
+      <div id="red_frequency_slider></div>
+      <input type="text" id="red_frequency_slider" readonly style="border:0; color:#f6931f; font-weight:bold;">
+      <br><br>
+      
+      <input type="submit" value="Submit"> -->
 
-
-    <!-- <h2>Premade effects</h2>
-    <button id="Fireplace" name="Fireplace">Fireplace</button><br>
-
-    <p>GPIO 12: <span id="gpio12"></span></p>  -->
-
-    <!-- <form action="/submit" method="GET">
-        <label for="name">Name:</label>
-        <input type="text" name="name" id="name">
-        <label for="email">Email:</label>
-        <input type="email" name="email" id="email">
-        <button type="submit">Submit</button>
-    </form> -->
+      <h2>Red settings</h2>
+      <label for="minBrightnessRed">Min brightness:</label>
+      <input type="text" id="minBrightnessRed" name="minBrightnessRed" value="0">
     
+      <label for="maxBrightnessRed">Max brightness:</label>
+      <input type="text" id="maxBrightnessRed" name="maxBrightnessRed" value="100">
+    
+      <div class="slider" id="brightnessRed"></div>
+    
+      <label for="minFreqRed">Min frequency:</label>
+      <input type="text" id="minFreqRed" name="minFreqRed" value="0">
+    
+      <label for="maxFreqRed">Max frequency:</label>
+      <input type="text" id="maxFreqRed" name="maxFreqRed" value="100">
+    
+      <div class="slider" id="freqRed"></div>
 
+      <!------------------------------------------------->
+
+      <h2>Green settings</h2>
+      <label for="minBrightnessGreen">Min brightness:</label>
+      <input type="text" id="minBrightnessGreen" name="minBrightnessGreen" value="0">
+    
+      <label for="maxBrightnessGreen">Max brightness:</label>
+      <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="100">
+    
+      <div class="slider" id="brightnessGreen"></div>
+    
+      <label for="minFreqGreen">Min frequency:</label>
+      <input type="text" id="minFreqGreen" name="minFreqGreen" value="0">
+    
+      <label for="maxFreqGreen">Max frequency:</label>
+      <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="100">
+    
+      <div class="slider" id="freqGreen"></div>
+
+      <!------------------------------------------------->
+
+      <h2>Blue settings</h2>
+      <label for="minBrightnessBlue">Min brightness:</label>
+      <input type="text" id="minBrightnessBlue" name="minBrightnessBlue" value="0">
+    
+      <label for="maxBrightnessBlue">Max brightness:</label>
+      <input type="text" id="maxBrightnessBlue" name="maxBrightnessBlue" value="100">
+    
+      <div class="slider" id="brightnessBlue"></div>
+    
+      <label for="minFreqBlue">Min frequency:</label>
+      <input type="text" id="minFreqBlue" name="minFreqBlue" value="0">
+    
+      <label for="maxFreqBlue">Max frequency:</label>
+      <input type="text" id="maxFreqBlue" name="maxFreqBlue" value="100">
+
+      <div class="slider" id="freqBlue"></div>
+
+      <!------------------------------------------------->
+
+      <h2>Sleep</h2>
+
+      <label for="minSleep">Min sleep:</label>
+      <input type="text" id="minSleep" name="minSleep" value="0">
+    
+      <label for="maxSleep">Max sleep:</label>
+      <input type="text" id="maxSleep" name="maxSleep" value="100">     
+
+      <div class="slider" id="sleep"></div>
+
+      <!------------------------------------------------->
+      
+      <button type="submit">Set</button>
+    </form>
     <script>
-      // var RedOnButton = document.getElementById('RedOnButton');
-      // var RedOffButton = document.getElementById('RedOffButton');
-
-      // var GreenOnButton = document.getElementById('GreenOnButton');
-      // var GreenOffButton = document.getElementById('GreenOffButton');
-
-      // var BlueOnButton = document.getElementById('BlueOnButton');
-      // var BlueOffButton = document.getElementById('BlueOffButton');
 
       // // Load data from JSON file
       // function fetchJSON() {
@@ -206,11 +319,5 @@
       // BlueOnButton.addEventListener('click', () => sendCommand(18, 1));
       // BlueOffButton.addEventListener('click', () => sendCommand(18, 0));
   </script>
-
-<!-- <script>
-  // Load data from JSON file
-      // Fetch the JSON data from the file
-
-</script> -->
   </body>
 </html>
