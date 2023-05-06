@@ -9,59 +9,59 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script>
       $(function() {
-  function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue) {
-    var lowerValue = parseInt($(lowerInput).val());
-    var higherValue = parseInt($(higherInput).val());
+        function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue) {
+          var lowerValue = parseFloat($(lowerInput).val());
+          var higherValue = parseFloat($(higherInput).val());
 
-    $(sliderContainer).slider({
-      range: true,
-      min: minValue,
-      max: maxValue,
-      values: [lowerValue, higherValue],
-      slide: function(event, ui) {
-        if (ui.values[0] >= ui.values[1]) {
-          return false;
+          $(sliderContainer).slider({
+            range: true,
+            min: minValue,
+            max: maxValue,
+            step: 0.01,
+            values: [lowerValue, higherValue],
+            slide: function(event, ui) {
+              if (ui.values[0] >= ui.values[1]) {
+                return false;
+              }
+              $(lowerInput).val(ui.values[0]);
+              $(higherInput).val(ui.values[1]);
+            }
+          });
+
+          $(lowerInput).change(function() {
+            var value = parseFloat($(this).val());
+            if (value < minValue) {
+              value = minValue;
+            } else if (value > $(higherInput).val()) {
+              value = $(higherInput).val();
+            }
+            $(sliderContainer).slider("values", 0, value);
+            $(this).val(value);
+          });
+
+          $(higherInput).change(function() {
+            var value = parseFloat($(this).val());
+            if (value > maxValue) {
+              value = maxValue;
+            } else if (value < $(lowerInput).val()) {
+              value = $(lowerInput).val();
+            }
+            $(sliderContainer).slider("values", 1, value);
+            $(this).val(value);
+          });
         }
-        $(lowerInput).val(ui.values[0]);
-        $(higherInput).val(ui.values[1]);
-      }
-    });
 
-    $(lowerInput).change(function() {
-      var value = parseInt($(this).val());
-      if (value < $(sliderContainer).slider("option", "min")) {
-        value = $(sliderContainer).slider("option", "min");
-      } else if (value > $(higherInput).val()) {
-        value = $(higherInput).val();
-      }
-      $(sliderContainer).slider("values", 0, value);
-      $(this).val(value);
-    });
-
-    $(higherInput).change(function() {
-      var value = parseInt($(this).val());
-      if (value > $(sliderContainer).slider("option", "max")) {
-        value = $(sliderContainer).slider("option", "max");
-      } else if (value < $(lowerInput).val()) {
-        value = $(lowerInput).val();
-      }
-      $(sliderContainer).slider("values", 1, value);
-      $(this).val(value);
-    });
-  }     
-
-        // var minDefaultValue = 0;
-        // var maxDefaultValue = 100;
+        // JS sliders used for brightness and frequency 
         createSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed", 0, 100);
-        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 0, 100);
+        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 0, 5000);
 
         createSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen", 0, 100);
-        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 0, 100);
+        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 0, 5000);
 
         createSlider("#brightnessBlue", "#minBrightnessBlue", "#maxBrightnessBlue", 0, 100);
-        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 0, 100);
+        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 0, 5000);
 
-        // createSlider("#sleep", "#minSleep", "#maxSleep", 0, 0.5);
+        createSlider("#sleep", "#minSleep", "#maxSleep", 0, 1);
       });
 
 
@@ -104,66 +104,24 @@
     </style>
   </head>
   <body>
-    <!-- <h1>Ledstrip</h1>
-    <h2>Red</h2>
-    <button id="RedOnButton" name="RedOnButton">ON</button>
-    <button id="RedOffButton" name="RedOffButton">OFF</button><br>
-    <button id="RedPulseOnButton" name="RedPulseOnButton">Pulse ON</button>
-    <button id="RedPulseOffButton" name="RedPulseOffButton">Pulse OFF</button><br>
-    <button id="RedFadeOutOnButton" name="RedFadeOutOnButton">Fade out ON</button>
-    <button id="RedFadeOutOffButton" name="RedFadeOutOffButton">Fade out OFF</button><br>
-    <button id="RedFadeInOnButton" name="RedFadeInOnButton">Fade in ON</button>
-    <button id="RedFadeInOffButton" name="RedFadeInOffButton">Fade in OFF</button><br>
+    <h1>TTurn all leds OFF</h1>
+    <form action="{{ url_for('process_turnoff') }}" method="post">
+      <button type="submit">OFF</button>
+    </form>
 
-    <h2>Green</h2>
-    <button id="GreenOnButton" name="GreenOnButton">ON</button>
-    <button id="GreenOffButton" name="GreenOffButton">OFF</button><br>
-    <button id="GreenPulseOnButton" name="GreenPulseOnButton">Pulse ON</button>
-    <button id="GreenPulseOffButton" name="GreenPulseOffButton">Pulse OFF</button><br>
-    <button id="GreenFadeOutOnButton" name="GreenFadeOutOnButton">Fade out ON</button>
-    <button id="GreenFadeOutOffButton" name="GreenFadeOutOffButton">Fade out OFF</button><br>
-    <button id="GreenFadeInOnButton" name="GreenFadeInOnButton">Fade in ON</button>
-    <button id="GreenFadeInOffButton" name="GreenFadeInOffButton">Fade in OFF</button><br>
+    <!-------------------------------------------------------->
 
-    <h2>Blue</h2>
-    <button id="BlueOnButton" name="BlueOnButton">ON</button>
-    <button id="BlueOffButton" name="BlueOffButton">OFF</button><br>
-    <button id="BluePulseOnButton" name="BluePulseOnButton">Pulse ON</button>
-    <button id="BluePulseOffButton" name="BluePulseOffButton">Pulse OFF</button><br>
-    <button id="BlueFadeOutOnButton" name="BlueFadeOutOnButton">Fade out ON</button>
-    <button id="BlueFadeOutOffButton" name="BlueFadeOutOffButton">Fade out OFF</button><br>
-    <button id="BlueFadeInOnButton" name="BlueFadeInOnButton">Fade in ON</button>
-    <button id="BlueFadeInOffButton" name="BlueFadeInOffButton">Fade in OFF</button><br> -->
+    <h1>Rainbow</h1>
+    <form action="{{ url_for('process_rainbow') }}" method="post">
+      <button type="submit">Start</button>
+      <!-- <button type="submit_stop">Stop</button> -->
+    </form>
+
+    <!-------------------------------------------------------->
 
     <h1>Fireplace</h1>
     
-    <form action="{{ url_for('process_form') }}" method="post">
-      <!-- <input type="text" name="projectFilepath">
-      <input type="submit">
-  </form> -->
-  
-      <!-- <label for="name">Name:</label> -->
-      <!-- <input type="text" id="name" name="testName"> -->
-      <!-- <label for="testSlider">Default range slider:</label> -->
-      <!-- <input type="range" min="1" max="100" value="50" name="testSlider"> -->
-      
-      <!-- <div id="slider-range"></div> -->
-      <!-- <input type="hidden" id="slider-values" name="sliderValues"> -->
-      <!-- <input type="hidden" id="slider-values" name="testSlider">
-      <input type="submit" value="Submit"> -->
-
-
-      <!-- <label for="red_duty_cycle_slider">Slider 1:</label>
-      <div id="red_duty_cycle_slider></div>
-      <input type="text" id="red_duty_cycle_slider" readonly style="border:0; color:#f6931f; font-weight:bold;">
-      <br><br>
-      
-      <label for="red_frequency_slider">Slider 2:</label>
-      <div id="red_frequency_slider></div>
-      <input type="text" id="red_frequency_slider" readonly style="border:0; color:#f6931f; font-weight:bold;">
-      <br><br>
-      
-      <input type="submit" value="Submit"> -->
+    <form action="{{ url_for('process_fireplace') }}" method="post">
 
       <h2>Red settings</h2>
       <label for="minBrightnessRed">Min brightness:</label>
@@ -228,7 +186,7 @@
       <input type="text" id="minSleep" name="minSleep" value="0">
     
       <label for="maxSleep">Max sleep:</label>
-      <input type="text" id="maxSleep" name="maxSleep" value="100">     
+      <input type="text" id="maxSleep" name="maxSleep" value="1">     
 
       <div class="slider" id="sleep"></div>
 
