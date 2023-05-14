@@ -11,7 +11,7 @@ class LED:
         GPIO.setup(self.pin, GPIO.OUT)
         # self.pwm = GPIO.PWM(self.pin, 100)
         if self.pin not in LED.pwm_objects:
-            self.pwm = GPIO.PWM(self.pin, 1000)
+            self.pwm = GPIO.PWM(self.pin, 100)
             self.pwm.start(0)
             LED.pwm_objects[self.pin] = self.pwm
         else:
