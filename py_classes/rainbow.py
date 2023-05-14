@@ -1,6 +1,7 @@
 import RPi.GPIO as GPIO
 import time
 import math
+import os
 from py_classes.led import LED
 from py_classes.hsv import HSVtoRGB
 
@@ -81,6 +82,16 @@ class Rainbow(LED):
                 self.set_duty_cycle(red)
                 self.green_pin.set_duty_cycle(green)
                 self.blue_pin.set_duty_cycle(blue)
+
+
+                # Debug
+
+                # print("red", self.get_duty_cycle())
+
+                # print("green", self.green_pin.get_duty_cycle())
+
+                # print("blue", self.blue_pin.get_duty_cycle())
+                # os.system('cls||clear')
 
                  # Increment the hue value and wrap around if necessary
                 current_hue = (current_hue + 1) % 360
