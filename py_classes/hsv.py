@@ -27,31 +27,86 @@
 #         return (red, green, blue)
 
 class HSVtoRGB:
+    # def convert(self, hue, saturation=1.0, value=1.0):
+    #     # https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
+    #     # c = value * saturation
+    #     # x = c * (1 - abs(((hue/60) % 2) - 1))
+    #     # m = value - c
+
+    #     # if 0 <= hue < 60:
+    #     #     red, green, blue = c, x, 0
+    #     # elif 60 <= hue < 120:
+    #     #     red, green, blue = x, c, 0
+    #     # elif 120 <= hue < 180:
+    #     #     red, green, blue = 0, c, x
+    #     # elif 180 <= hue < 240:
+    #     #     red, green, blue = 0, x, c
+    #     # elif 240 <= hue < 300:
+    #     #     red, green, blue = x, 0, c
+    #     # elif 300 <= hue < 360:
+    #     #     red, green, blue = c, 0, x
+    #     # # else:
+    #     # #     red, green, blue = 0, 0, 0
+        
+    #     hue /= 60
+    #     chroma = value * saturation
+    #     x = chroma * (1 - abs(hue % 2 - 1))
+    #     r, g, b = 0.0, 0.0, 0.0
+
+    #     if 0 <= hue < 1:
+    #         r, g, b = chroma, x, 0.0
+    #         # print("R", chroma)
+    #     elif 1 <= hue < 2:
+    #         r, g, b = x, chroma, 0.0
+    #         # print("G", chroma)
+    #     elif 2 <= hue < 3:
+    #         r, g, b = 0.0, chroma, x
+    #         # print("G", chroma)
+    #     elif 3 <= hue < 4:
+    #         r, g, b = 0.0, x, chroma
+    #         # print("B", chroma)
+    #     elif 4 <= hue < 5:
+    #         r, g, b = x, 0.0, chroma
+    #         # print("B", chroma)
+    #     elif 5 <= hue < 6:
+    #         r, g, b = chroma, 0.0, x
+    #         # print("R", chroma)
+
+    #     # Scale the RGB values from the range [0, 1] to [0, 100]
+    #     # red = int((red + m) * 100)
+    #     # green = int((green + m) * 100)
+    #     # blue = int((blue + m) * 100)
+        
+    #     m = value - chroma
+    #     r, g, b = round((r + m) * 255, 2), round((g + m) * 255, 2), round((b + m) * 255, 2)
+
+    #     return (r, g, b)
+    
+    def convert_range(self, value, convert_to = 255):
+        return round(value * 100 / convert_to)
+    
+    
     def convert(self, hue, saturation=1.0, value=1.0):
-        # Convert HSV to RGB using the algorithm described here:
-        # https://en.wikipedia.org/wiki/HSL_and_HSV#From_HSV
-        c = value * saturation
-        x = c * (1 - abs(((hue/60) % 2) - 1))
-        m = value - c
-
+        chroma = saturation * value
+        x = chroma * (1- abs((hue/60) % 2 - 1))
+        m = value - chroma
         if 0 <= hue < 60:
-            red, green, blue = c, x, 0
+            red, green, blue = chroma, x, 0
         elif 60 <= hue < 120:
-            red, green, blue = x, c, 0
+            red, green, blue = x, chroma, 0
         elif 120 <= hue < 180:
-            red, green, blue = 0, c, x
+            red, green, blue = 0, chroma, x
         elif 180 <= hue < 240:
-            red, green, blue = 0, x, c
+            red, green, blue = 0, x, chroma
         elif 240 <= hue < 300:
-            red, green, blue = x, 0, c
+            red, green, blue = x, 0, chroma
         elif 300 <= hue < 360:
-            red, green, blue = c, 0, x
-        else:
-            red, green, blue = 0, 0, 0
+            red, green, blue = chroma, 0, x
+        
+        r, g, b = self.convert_range((red + m) * 255), self.convert_range((green + m) * 255), self.convert_range((blue + m) * 255)
+        return (r, g, b)
+            
 
-        # Scale the RGB values from the range [0, 1] to [0, 100]
-        red = int((red + m) * 100)
-        green = int((green + m) * 100)
-        blue = int((blue + m) * 100)
+hsv_to_rgb = HSVtoRGB()
 
-        return (red, green, blue)
+print(hsv_to_rgb.convert(60, 1, 1))
