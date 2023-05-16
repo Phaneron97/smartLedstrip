@@ -6,102 +6,42 @@ from py_classes.led import LED
 from py_classes.hsv import HSVtoRGB
 
 
-###################### HSV class ####################
-class Rainbow(LED):
+###################### using HSV ####################
+class Rainbow:
     def __init__(self, red_pin, green_pin, blue_pin):
-        # Set the pins for the RGB LEDs
-        super().__init__(red_pin)
+        self.red_pin = LED(red_pin)
         self.green_pin = LED(green_pin)
         self.blue_pin = LED(blue_pin)
         self.hsv_to_rgb = HSVtoRGB()
-
-        # Set the mode for GPIO pins
-        # GPIO.setmode(GPIO.BCM)
-
-        # Set up the GPIO pins for output
-        # GPIO.setup(self.red_pin, GPIO.OUT)
-        # GPIO.setup(self.green_pin, GPIO.OUT)
-        # GPIO.setup(self.blue_pin, GPIO.OUT)
-
-        # Set up the PWM for each LED color
-        # self.pwm_red = GPIO.PWM(self.red_pin, 100)
-        # self.pwm_green = GPIO.PWM(self.green_pin, 100)
-        # self.pwm_blue = GPIO.PWM(self.blue_pin, 100)
-
+        
     def start(self):
-        # Start the PWM for each LED color
-        # self.pwm_red.start(0)
-        # self.pwm_green.start(0)
-        # self.pwm_blue.start(0)
-
-        # Loop through all the possible hue values (0-360 degrees) and set the color of the LEDs accordingly
-        # hsv_to_rgb = HSVtoRGB()
-        current_hue = 0
+        current_hue = 0 # starting hue
+        
+        # set starting frequency of all leds
+        self.red_pin.set_frequency(100)
+        self.green_pin.set_frequency(100)
+        self.blue_pin.set_frequency(100)
+        
         while True:
             for hue in range(361):
-                # # Convert the hue value to RGB manually using HSV values
-                # saturation = 1.0
-                # value = 1.0
-                # c = value * saturation
-                # x = c * (1 - abs(((hue/60) % 2) - 1))
-                # m = value - c
-                # if 0 <= hue < 60:
-                #     red, green, blue = c, x, 0
-                # elif 60 <= hue < 120:
-                #     red, green, blue = x, c, 0
-                # elif 120 <= hue < 180:
-                #     red, green, blue = 0, c, x
-                # elif 180 <= hue < 240:
-                #     red, green, blue = 0, x, c
-                # elif 240 <= hue < 300:
-                #     red, green, blue = x, 0, c
-                # elif 300 <= hue < 360:
-                #     red, green, blue = c, 0, x
-                # else:
-                #     red, green, blue = 0, 0, 0
-
-                # # Scale the RGB values from the range [0, 1] to [0, 100]
-                # red = int((red + m) * 100)
-                # green = int((green + m) * 100)
-                # blue = int((blue + m) * 100)
-    
-                # saturation = 1.0
-                # value = 1.0
-                # red, green, blue = hsv_to_rgb.convert(hue, saturation, value)
-
                 # Convert the current hue value to RGB using the HSVtoRGB converter
                 red, green, blue = self.hsv_to_rgb.convert(current_hue)
 
-
-                # Set the duty cycle of each PWM channel
-                # self.pwm_red.ChangeDutyCycle(red)
-                # self.pwm_green.ChangeDutyCycle(green)
-                # self.pwm_blue.ChangeDutyCycle(blue)
-
                 # self.pwm_red.set_duty_cycle(red)
-                self.set_duty_cycle(red)
+                self.red_pin.set_duty_cycle(red)
                 self.green_pin.set_duty_cycle(green)
                 self.blue_pin.set_duty_cycle(blue)
 
-
-                # Debug
-
-                # print("red", self.get_duty_cycle())
-
-                # print("green", self.green_pin.get_duty_cycle())
-
-                # print("blue", self.blue_pin.get_duty_cycle())
-                # os.system('cls||clear')
-
-                 # Increment the hue value and wrap around if necessary
+                # hue resolution of 360
                 current_hue = (current_hue + 1) % 360
 
-                # Wait a short time before updating the color again
-                self.set_sleep(0.01)
+                # time in seconds to wait between each color change
+                # self.set_sleep(0.01)
+                time.sleep(0.01)
 
     def stop(self):
         # Stop the PWM for each LED color
-        self.turn_off()
+        self.red_pin.turn_off()
         self.green_pin.turn_off()
         self.blue_pin.turn_off()
 
