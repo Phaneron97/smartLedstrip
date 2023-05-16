@@ -82,14 +82,19 @@ class HSVtoRGB:
 
     #     return (r, g, b)
     
-    def convert_range(self, value, convert_to = 255):
-        return round(value * 100 / convert_to)
+    # def convert_range(self, value, convert_to=255):
+    #     converted_value = round(value * 100 / convert_to)
+    #     if converted_value <= 50:
+    #         return 0
+    #     return converted_value
     
     
     def convert(self, hue, saturation=1.0, value=1.0):
-        chroma = saturation * value
-        x = chroma * (1- abs((hue/60) % 2 - 1))
+        chroma = saturation * value # calc chroma
+        x = chroma * (1- abs((hue/60) % 2 - 1)) 
         m = value - chroma
+        
+        # Hue degrees determines which color is turned on
         if 0 <= hue < 60:
             red, green, blue = chroma, x, 0
         elif 60 <= hue < 120:
@@ -103,10 +108,18 @@ class HSVtoRGB:
         elif 300 <= hue < 360:
             red, green, blue = chroma, 0, x
         
-        r, g, b = self.convert_range((red + m) * 255), self.convert_range((green + m) * 255), self.convert_range((blue + m) * 255)
+        # Get value between 0-255 for dutycycle
+        r = (red + m) * 255
+        g = (green + m) * 255
+        b = (blue + m) * 255
+        
+        # print("r", r)
+        # print("g", g)
+        # print("b", b)
         return (r, g, b)
             
 
-hsv_to_rgb = HSVtoRGB()
+# hsv_to_rgb = HSVtoRGB()
 
-print(hsv_to_rgb.convert(60, 1, 1))
+# for i in range(360):    
+#     print(hsv_to_rgb.convert(i, 1, 1))
