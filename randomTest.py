@@ -10,16 +10,21 @@ GPIO.setup(red_pin, GPIO.OUT)
 GPIO.setup(green_pin, GPIO.OUT)
 GPIO.setup(blue_pin, GPIO.OUT)
 
-pause = 0.5
+pwm = GPIO.PWM(red_pin, 100)
+pwm.start(0)
 
-while True:
-    GPIO.output(red_pin, GPIO.HIGH)    
-    time.sleep(pause)
-    GPIO.output(red_pin, GPIO.LOW)
-    GPIO.output(green_pin, GPIO.HIGH)    
-    time.sleep(pause)
-    GPIO.output(green_pin, GPIO.LOW)
-    GPIO.output(blue_pin, GPIO.HIGH)    
-    time.sleep(pause)
-    GPIO.output(blue_pin, GPIO.LOW)
+# while True:
+#     pwm.start(1)
+
+for x in range(10):
     
+    for i in range(0, 100, 1):
+        pwm.ChangeDutyCycle(i)
+        print(i)
+        time.sleep(0.01)
+    for i in range(100, 0, -1):
+        pwm.ChangeDutyCycle(i)
+        print(i)
+        time.sleep(0.01)
+
+GPIO.cleanup()
