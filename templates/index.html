@@ -9,15 +9,15 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
     <script>
       $(function() {
-        function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue) {
+        function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue, step) {
           var lowerValue = parseFloat($(lowerInput).val());
           var higherValue = parseFloat($(higherInput).val());
-
+      
           $(sliderContainer).slider({
             range: true,
             min: minValue,
             max: maxValue,
-            step: 0.01,
+            step: step,
             values: [lowerValue, higherValue],
             slide: function(event, ui) {
               if (ui.values[0] >= ui.values[1]) {
@@ -27,7 +27,7 @@
               $(higherInput).val(ui.values[1]);
             }
           });
-
+      
           $(lowerInput).change(function() {
             var value = parseFloat($(this).val());
             if (value < minValue) {
@@ -38,7 +38,7 @@
             $(sliderContainer).slider("values", 0, value);
             $(this).val(value);
           });
-
+      
           $(higherInput).change(function() {
             var value = parseFloat($(this).val());
             if (value > maxValue) {
@@ -50,18 +50,18 @@
             $(this).val(value);
           });
         }
-
-        // JS sliders used for brightness and frequency 
-        createSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed", 0, 100);
-        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 0, 5000);
-
-        createSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen", 0, 100);
-        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 0, 5000);
-
-        createSlider("#brightnessBlue", "#minBrightnessBlue", "#maxBrightnessBlue", 0, 100);
-        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 0, 5000);
-
-        createSlider("#sleep", "#minSleep", "#maxSleep", 0, 1);
+      
+        // JS sliders used for brightness and frequency
+        createSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed", 0, 255, 1);
+        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 100, 5000, 1);
+      
+        createSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen", 0, 255, 1);
+        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 100, 5000, 1);
+      
+        createSlider("#brightnessBlue", "#minBrightnessBlue", "#maxBrightnessBlue", 0, 255, 1);
+        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 100, 5000, 1);
+      
+        createSlider("#sleep", "#minSleep", "#maxSleep", 0, 1, 0.01);
       });
 
 
@@ -128,7 +128,7 @@
       <input type="text" id="minBrightnessRed" name="minBrightnessRed" value="0">
     
       <label for="maxBrightnessRed">Max brightness:</label>
-      <input type="text" id="maxBrightnessRed" name="maxBrightnessRed" value="100">
+      <input type="text" id="maxBrightnessRed" name="maxBrightnessRed" value="255">
     
       <div class="slider" id="brightnessRed"></div>
     
@@ -136,7 +136,7 @@
       <input type="text" id="minFreqRed" name="minFreqRed" value="0">
     
       <label for="maxFreqRed">Max frequency:</label>
-      <input type="text" id="maxFreqRed" name="maxFreqRed" value="100">
+      <input type="text" id="maxFreqRed" name="maxFreqRed" value="255">
     
       <div class="slider" id="freqRed"></div>
 
