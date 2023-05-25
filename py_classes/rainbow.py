@@ -2,6 +2,7 @@ import RPi.GPIO as GPIO
 import time
 import math
 import os
+import threading
 from py_classes.led import LED
 from py_classes.hsv import HSVtoRGB
 
@@ -13,6 +14,7 @@ class Rainbow:
         self.green_pin = LED(green_pin)
         self.blue_pin = LED(blue_pin)
         self.hsv_to_rgb = HSVtoRGB()
+        self.rainbow_running = False
         
     def start(self):
         current_hue = 0 # starting hue
@@ -22,15 +24,19 @@ class Rainbow:
         self.green_pin.set_frequency(100)
         self.blue_pin.set_frequency(100)
         
-        while True:
+        self.rainbow_running = True
+        while self.rainbow_running:
             for hue in range(361):
                 # Convert the current hue value to RGB using the HSVtoRGB converter
                 red, green, blue = self.hsv_to_rgb.convert(current_hue)
 
                 # self.pwm_red.set_duty_cycle(red)
-                self.red_pin.set_duty_cycle(red)
-                self.green_pin.set_duty_cycle(green)
-                self.blue_pin.set_duty_cycle(blue)
+                if self.rainbow_running == True:
+                    self.red_pin.set_duty_cycle(red)
+                    self.green_pin.set_duty_cycle(green)
+                    self.blue_pin.set_duty_cycle(blue)
+                else:
+                    break
 
                 # hue resolution of 360
                 current_hue = (current_hue + 1) % 360
@@ -39,15 +45,32 @@ class Rainbow:
                 # self.set_sleep(0.01)
                 time.sleep(0.01)
 
-    def stop(self):
+    # def turn_off(self):
+    #     # Stop the PWM for each LED color
+    #     self.red_pin.turn_off()
+    #     self.green_pin.turn_off()
+    #     self.blue_pin.turn_off()
+
+    #     # Clean up the GPIO pins
+    #     # GPIO.cleanup()
+
+    def turn_off(self):
+        # Set the flag variable to False to break out of the while loop in the thread
+        self.rainbow_running = False
+        # print("set running is false rainbow")
+        # time.sleep(5)
+
+        # Wait for the thread to finish
+        # rainbow_thread.join()
+
         # Stop the PWM for each LED color
         self.red_pin.turn_off()
         self.green_pin.turn_off()
         self.blue_pin.turn_off()
+        # print("leds turned off rainbow")
 
-        # Clean up the GPIO pins
-        GPIO.cleanup()
-
+        # Reset the thread variable
+        # rainbow_thread = None
 
 
 

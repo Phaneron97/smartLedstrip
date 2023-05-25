@@ -37,7 +37,7 @@
 #                 led.pwm.stop()
 #             GPIO.cleanup()
 
-# # Define the PWM pins for the red, green, and blue LEDs
+# # Define the PWM pins for the red, green_pin, and blue_pin LEDs
 # red_pin = 12
 # green_pin = 13
 # blue_pin = 18
@@ -51,8 +51,10 @@
 import random
 import time
 from py_classes.led import LED
+# from py_classes.fade import Fading
+# from py_classes.pulse import Pulsing
 
-class Fireplace(LED):
+class Fireplace():
     def __init__(self, red_pin, green_pin, blue_pin):
         # self.leds = [LED(red_pin), LED(green_pin), LED(blue_pin)]
         # self.red_pin = red_pin
@@ -60,9 +62,20 @@ class Fireplace(LED):
         # self.blue_pin = blue_pin
 
         # New
-        super().__init__(red_pin)
-        self.green_led = LED(green_pin)
-        self.blue_led = LED(blue_pin)
+        # super().__init__(red_pin)
+        self.red_pin = LED(red_pin)
+        self.green_pin = LED(green_pin)
+        self.blue_pin = LED(blue_pin)
+        self.fireplace_running = False
+        
+        # self.red_fader = Fading(red_pin)
+        # self.red_pulser = Pulsing(red_pin)
+        
+        # self.green_fader = Fading(green_pin)
+        # self.green_pulser = Pulsing(green_pin)
+        
+        # self.blue_fader = Pulsing(blue_pin)
+        # self.blue_pulser = Pulsing(blue_pin)
 
 
     def flicker(self, 
@@ -80,59 +93,36 @@ class Fireplace(LED):
         maxFreqBlue,
         minSleep,
         maxSleep):
-        red_duty_cycle = random.uniform(random.uniform(minBrightnessRed-5, minBrightnessRed+5), random.uniform(maxBrightnessRed-5, maxBrightnessRed))
-        red_frequency = random.uniform(minFreqRed, maxFreqRed)
+        
+        red_duty_cycle = int(random.uniform(minBrightnessRed, maxBrightnessRed))
+        red_frequency = int(random.uniform(minFreqRed, maxFreqRed))
 
-        green_duty_cycle = random.uniform(random.uniform(minBrightnessGreen-5, minBrightnessGreen+5), random.uniform(maxBrightnessGreen-5, maxBrightnessGreen))
-        green_frequency = random.uniform(minFreqGreen, maxFreqGreen)
+        green_duty_cycle = int(random.uniform(minBrightnessGreen, maxBrightnessGreen))
+        green_frequency = int(random.uniform(minFreqGreen, maxFreqGreen))
 
-        blue_duty_cycle = random.uniform(random.uniform(minBrightnessBlue-5, minBrightnessBlue+5), random.uniform(maxBrightnessBlue-5, maxBrightnessBlue))
-        blue_frequency = random.uniform(minFreqBlue, maxFreqBlue)
-
+        blue_duty_cycle = int(random.uniform(minBrightnessBlue, maxBrightnessBlue))
+        blue_frequency = int(random.uniform(minFreqBlue, maxFreqBlue))
+        
         # Set dutycycle and frequency per led
-        self.set_duty_cycle(red_duty_cycle)
-        self.set_frequency(red_frequency)
+        self.red_pin.set_duty_cycle(red_duty_cycle)
+        self.red_pin.set_frequency(red_frequency)
 
-        self.green_led.set_duty_cycle(green_duty_cycle)
-        self.green_led.set_frequency(green_frequency)
+        self.green_pin.set_duty_cycle(green_duty_cycle)
+        self.green_pin.set_frequency(green_frequency)
 
-        self.blue_led.set_duty_cycle(blue_duty_cycle)
-        self.blue_led.set_frequency(blue_frequency)
+        self.blue_pin.set_duty_cycle(blue_duty_cycle)
+        self.blue_pin.set_frequency(blue_frequency)
 
+        # self.red_fader.fade_in(red_duty_cycle)
+        # self.green_fader.fade_in(green_duty_cycle)
+        # self.blue_pulser.pulse(blue_duty_cycle)
 
-        print("red duty", self.get_duty_cycle())
-        print("red freq", self.get_frequency())
-        print()
-        print("green duty", self.green_led.get_duty_cycle())
-        print("green freq", self.green_led.get_frequency())
-        print()
-        print("blue duty", self.blue_led.get_duty_cycle())
-        print("blue freq", self.blue_led.get_frequency())
-        print("-----------")
+        # self.red_fader.fade_out(red_duty_cycle)
+        # self.green_fader.fade_out(green_duty_cycle)
+        
 
-        # for led in self.leds:
-        #     # Randomly generate duty cycle and frequency values for each LED
-        #     if led.pin == self.red_pin:
-        #         led.set_duty_cycle(random.uniform(random.uniform(minBrightnessRed-5, minBrightnessRed+5), random.uniform(maxBrightnessRed-5, maxBrightnessRed)))
-        #         print("red duty cycle", led.get_duty_cycle())
-        #         led.set_frequency(random.uniform(minFreqRed, maxFreqRed))
-        #     elif led.pin == self.green_pin:
-        #         led.set_duty_cycle(random.uniform(random.uniform(minBrightnessGreen-5, minBrightnessGreen+5), random.uniform(maxBrightnessGreen-5, maxBrightnessGreen)))
-        #         print("green duty cycle", led.get_duty_cycle())
-        #         led.set_frequency(random.uniform(minFreqGreen, maxFreqGreen))
-        #     elif led.pin == self.blue_pin:
-        #         led.set_duty_cycle(random.uniform(random.uniform(minBrightnessBlue-5, minBrightnessBlue+5), random.uniform(maxBrightnessBlue-5, maxBrightnessBlue)))
-        #         print("blue duty cycle", led.get_duty_cycle())
-        #         led.set_frequency(random.uniform(minFreqBlue, maxFreqBlue))
-        #     else:
-        #         print("no led found in fireplace")
-
-            # led.set_duty_cycle(duty_cycle)
-            # led.set_frequency(frequency)
-        # led.set_sleep(random.uniform(minSleep, maxSleep))
-        self.set_sleep(random.uniform(minSleep, maxSleep))
-        self.green_led.set_sleep(random.uniform(minSleep, maxSleep))
-        self.blue_led.set_sleep(random.uniform(minSleep, maxSleep))
+        sleep_time = random.uniform(minSleep, maxSleep)
+        time.sleep(sleep_time)
 
 
     def start(
@@ -151,29 +141,44 @@ class Fireplace(LED):
         maxFreqBlue,
         minSleep,
         maxSleep):
-        try:
-            while True:
-                self.flicker(
-                    minBrightnessRed, 
-                    maxBrightnessRed,
-                    minFreqRed,
-                    maxFreqRed,
-                    minBrightnessGreen,
-                    maxBrightnessGreen,
-                    minFreqGreen,
-                    maxFreqGreen,
-                    minBrightnessBlue,
-                    maxBrightnessBlue,
-                    minFreqBlue,
-                    maxFreqBlue,
-                    minSleep,
-                    maxSleep)
+        # try:
+        self.fireplace_running = True
+        while self.fireplace_running:
+            self.flicker(
+                minBrightnessRed, 
+                maxBrightnessRed,
+                minFreqRed,
+                maxFreqRed,
+                minBrightnessGreen,
+                maxBrightnessGreen,
+                minFreqGreen,
+                maxFreqGreen,
+                minBrightnessBlue,
+                maxBrightnessBlue,
+                minFreqBlue,
+                maxFreqBlue,
+                minSleep,
+                maxSleep)
                 # self.time.sleep(random.uniform(0.08, 0.15))
-        except KeyboardInterrupt:
-            for led in self.leds:
-                led.pwm.stop()
-            GPIO.cleanup()
+        # except KeyboardInterrupt:
+        #     for led in self.leds:
+        #         led.pwm.stop()
+        #     GPIO.cleanup()
 
+    # def turn_off(self):
+    #     # Stop the PWM for each LED color
+    #     self.red_pin.turn_off()
+    #     self.green_pin.turn_off()
+    #     self.blue_pin.turn_off()
+    
+    def turn_off(self):
+        self.fireplace_running = False
+        # self.thread.join()  # Wait for the thread to finish
+        self.red_pin.turn_off()
+        self.green_pin.turn_off()
+        self.blue_pin.turn_off()
+
+#################### Old class below ####################
 
 # class Fireplace:
 #     def __init__(self, red_pin, green_pin, blue_pin):

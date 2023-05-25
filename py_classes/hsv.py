@@ -34,17 +34,17 @@ class HSVtoRGB:
     #         return 0
     #     return converted_value
     
-    def validate_inputs(hue, saturation, value):
+    def validate_hsv(self, hue, saturation, value):
         # Validate input types
         if not isinstance(hue, int):
-            raise ValueError("Invalid integer for 'hue'")
+            raise ValueError("Invalid float for 'hue'")
         if not isinstance(saturation, float):
             raise ValueError("Invalid float for 'saturation'")
         if not isinstance(value, float):
             raise ValueError("Invalid float for 'value'")
 
         # Validate input value ranges
-        if not (0 <= hue <= 255):
+        if not (0 <= hue <= 360):
             raise ValueError("'hue' must be between 0 and 255.")
         if not (0.0 <= saturation <= 1.0):
             raise ValueError("'saturation' be between 0.0 and 1.0.")
@@ -53,10 +53,10 @@ class HSVtoRGB:
     
     
     def convert(self, hue, saturation=1.0, value=1.0):
-        self.validate_inputs(hue, saturation, value)        
+        self.validate_hsv(hue, saturation, value)
         
         chroma = saturation * value # calc chroma
-        x = chroma * (1- abs((hue/60) % 2 - 1)) 
+        x = chroma * (1 - abs((hue / 60) % 2 - 1)) 
         m = value - chroma
         
         # Hue degrees determines which color is turned on
@@ -78,9 +78,6 @@ class HSVtoRGB:
         g = (green + m) * 255
         b = (blue + m) * 255
         
-        # print("r", r)
-        # print("g", g)
-        # print("b", b)
         return (r, g, b)
             
 

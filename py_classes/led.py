@@ -80,3 +80,6 @@ class LED:
 
     def turn_off(self):
         self.set_duty_cycle(0)
+        # self.pi.set_mode(self.pin, pigpio.INPUT)
+        # self.set_frequency(0)
+        # self.pi.stop()

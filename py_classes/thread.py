@@ -1,14 +1,16 @@
 import threading
+# import pigpioi
+
 
 class Thread(threading.Thread):
-    def __init__(self):
+    def __init__(self, target=None, *args):
         super().__init__()
+        self.target = target
+        self.args = args
         self._stop_event = threading.Event()
 
     def run(self):
-        while not self._stop_event.is_set():
-            # Do some work
-            pass
+        self.target(*self.args)
 
     def stop(self):
         self._stop_event.set()

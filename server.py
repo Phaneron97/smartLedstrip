@@ -2,7 +2,7 @@ from flask import Flask, render_template, redirect, url_for, request
 import threading
 from py_classes.fireplace import Fireplace
 from py_classes.rainbow import Rainbow
-from py_classes.thread import Thread
+# from py_classes.thread import Thread
 
 red_pin = 12
 green_pin = 13
@@ -18,15 +18,31 @@ blue_pin = 18
 #     (100, 1, 1)  # Red
 # ]
 
+
+# List to store active threads
+# active_threads = []
+
+# def create_thread():
+#     for thread in active_threads:
+#         thread.join()        
+
+
 fireplace = Fireplace(red_pin, green_pin, blue_pin)
-rainbow = Rainbow(red_pin, green_pin, blue_pin) # , colors
+rainbow = Rainbow(red_pin, green_pin, blue_pin) # ,colors (extra parameter without HSV)
+
+# Initialize the thread instances
+# thread = threading.Thread()
+
+fireplace_thread = None
+rainbow_thread = None
+
+# Initialize the thread instance
+# thread = Thread()
 
 app = Flask(__name__)
 
-
 def start_rainbow():
     rainbow.start()
-
 
 def start_fireplace(
     minBrightnessRed, 
@@ -69,14 +85,40 @@ def index():
 
 @app.route("/process_turnoff", methods=['POST'])
 def process_turnoff():
-    rainbow.stop()
-    # fireplace.turn_off()
+    global fireplace_thread, rainbow_thread
+
+    if fireplace_thread is not None:
+        fireplace.turn_off()
+        fireplace_thread.join()
+        fireplace_thread = None        
+
+    if rainbow_thread is not None:
+        rainbow.turn_off()
+        rainbow_thread.join()
+        rainbow_thread = None
+
     return render_template('index.html')
-    
+
 
 @app.route("/process_fireplace", methods=['POST'])
 def process_fireplace():
-    # Requet results from HTML form
+    global fireplace_thread, rainbow_thread
+    
+    if fireplace_thread is not None:
+        print("Fireplace turning off")
+        fireplace.turn_off()
+        fireplace_thread.join()
+    # if thread.is_alive():
+    #     if fireplace.is_running():
+    #         fireplace.turn_off()
+    #     if rainbow.is_running():
+    #         rainbow.stop()
+    #     thread.stop()
+    #     thread.join()
+    
+    # if thread.is_alive():
+    #     thread.join()
+        
 
     # Red
     minBrightnessRed = float(request.form.get('minBrightnessRed'))
@@ -108,36 +150,64 @@ def process_fireplace():
     # fireplace_values = fireplace_list.split(',')
     # red_duty_cycle_min = int(fireplace_values[0])
     # red_duty_cycle_max = int(fireplace_values[1])
-
-    running = threading.Event()
-    running.set()
-    thread = threading.Thread(
-        target=start_fireplace, 
-        args=(
-            minBrightnessRed, 
-            maxBrightnessRed,
-            minFreqRed,
-            maxFreqRed,
-            minBrightnessGreen,
-            maxBrightnessGreen,
-            minFreqGreen,
-            maxFreqGreen,
-            minBrightnessBlue,
-            maxBrightnessBlue,
-            minFreqBlue,
-            maxFreqBlue,
-            minSleep,
-            maxSleep))
-    thread.start()
+    if fireplace_thread is None:   # if thread is turned off
+        if rainbow_thread is not None:
+            rainbow.turn_off()
+            rainbow_thread.join()
+            rainbow_thread = None
+        fireplace_thread = threading.Thread(
+            target=start_fireplace, 
+            args=(
+                minBrightnessRed, 
+                maxBrightnessRed,
+                minFreqRed,
+                maxFreqRed,
+                minBrightnessGreen,
+                maxBrightnessGreen,
+                minFreqGreen,
+                maxFreqGreen,
+                minBrightnessBlue,
+                maxBrightnessBlue,
+                minFreqBlue,
+                maxFreqBlue,
+                minSleep,
+                maxSleep))
+    
+    # active_threads.append(fireplace_thread) # append to list of active threads    
+    
+        
+    fireplace_thread.start() # start current thread
+    print("fireplace started")
+    # create_thread()
+            
     return render_template('index.html')
 
 
 @app.route("/process_rainbow", methods=['POST'])
 def process_rainbow():
-    thread = threading.Thread(
-        target=start_rainbow
-    )
-    thread.start()
+    # rainbow_thread = threading.Thread(target=start_rainbow)
+    
+    # active_threads.append(rainbow_thread) # append to list of active threads    
+    # rainbow_thread.start() # start current thread
+    # create_thread()
+    
+    global fireplace_thread, rainbow_thread
+
+    if rainbow_thread is not None:
+        print("Rainbow turning off")
+        rainbow.turn_off()
+        rainbow_thread.join()
+
+    if rainbow_thread is None:
+        if fireplace_thread is not None:
+            fireplace.turn_off()
+            fireplace_thread.join()
+            fireplace_thread = None     
+        rainbow_thread = threading.Thread(target=start_rainbow)
+        
+    rainbow_thread.start()        
+    print("rainbow started")
+    
     return render_template('index.html')
 
 
