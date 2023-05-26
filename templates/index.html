@@ -104,7 +104,7 @@
     </style>
   </head>
   <body>
-    <h1>TTurn all leds OFF</h1>
+    <h1>Turn all leds OFF</h1>
     <form action="{{ url_for('process_turnoff') }}" method="post">
       <button type="submit">OFF</button>
     </form>
@@ -113,7 +113,7 @@
 
     <h1>Rainbow</h1>
     <form action="{{ url_for('process_rainbow') }}" method="post">
-      <button type="submit">Start</button>
+      <button type="submit">Start rainbow</button>
       <!-- <button type="submit_stop">Stop</button> -->
     </form>
 
@@ -140,7 +140,7 @@
     
       <div class="slider" id="freqRed"></div>
 
-      <!------------------------------------------------->
+     
 
       <h2>Green settings</h2>
       <label for="minBrightnessGreen">Min brightness:</label>
@@ -159,7 +159,7 @@
     
       <div class="slider" id="freqGreen"></div>
 
-      <!------------------------------------------------->
+      
 
       <h2>Blue settings</h2>
       <label for="minBrightnessBlue">Min brightness:</label>
@@ -178,9 +178,9 @@
 
       <div class="slider" id="freqBlue"></div>
 
-      <!------------------------------------------------->
+      
 
-      <h2>Sleep</h2>
+      <h2>Sleep (in seconds)</h2>
 
       <label for="minSleep">Min sleep:</label>
       <input type="text" id="minSleep" name="minSleep" value="0">
@@ -190,9 +190,9 @@
 
       <div class="slider" id="sleep"></div>
 
-      <!------------------------------------------------->
       
-      <button type="submit">Set</button>
+      
+      <button type="submit">Start fireplace</button>
     </form>
     <script>
 
