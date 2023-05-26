@@ -105,12 +105,15 @@ class Fireplace():
         
         # Set dutycycle and frequency per led
         self.red_pin.set_duty_cycle(red_duty_cycle)
+        # print("red", self.red_pin.get_duty_cycle())
         self.red_pin.set_frequency(red_frequency)
 
         self.green_pin.set_duty_cycle(green_duty_cycle)
+        # print("green", self.green_pin.get_duty_cycle())
         self.green_pin.set_frequency(green_frequency)
 
         self.blue_pin.set_duty_cycle(blue_duty_cycle)
+        # print("blue", self.blue_pin.get_duty_cycle())
         self.blue_pin.set_frequency(blue_frequency)
 
         # self.red_fader.fade_in(red_duty_cycle)
