@@ -78,6 +78,7 @@ class HSVtoRGB:
         g = (green + m) * 255
         b = (blue + m) * 255
         
+        # print (int(r), int(g), int(b))
         return (r, g, b)
             
 
