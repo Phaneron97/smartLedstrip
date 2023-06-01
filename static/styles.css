@@ -1,0 +1,33 @@
+h1 {
+    text-align: center;
+  }
+  
+  h2 {
+    text-align: center;
+  }
+  
+  form {
+    text-align: center;
+  }
+  
+  button {
+    padding: 10px 20px;
+    font-size: 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .setting {
+    margin-top: 20px;
+  }
+  
+  .slider-container {
+    margin-top: 10px;
+  }
+  
+  .slider {
+    width: 300px;
+    margin: 10px auto;
+  }
