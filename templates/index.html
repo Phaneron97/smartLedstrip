@@ -1,281 +1,163 @@
 
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-  <head>
-    <!-- <meta http-equiv="Content-Type" content="application/json"> -->
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
-    <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
-    <script>
-      $(function() {
-        function createSlider(sliderContainer, lowerInput, higherInput, minValue, maxValue, step) {
-          var lowerValue = parseFloat($(lowerInput).val());
-          var higherValue = parseFloat($(higherInput).val());
-      
-          $(sliderContainer).slider({
-            range: true,
-            min: minValue,
-            max: maxValue,
-            step: step,
-            values: [lowerValue, higherValue],
-            slide: function(event, ui) {
+<!DOCTYPE html>
+<html>
+<head>
+  <title>LED Control</title>
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
+  <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+  <script>
+    $(function() {
+      class Slider {
+        constructor(sliderContainer, lowerInput, higherInput, minValue, maxValue, step) {
+          this.sliderContainer = sliderContainer;
+          this.lowerInput = lowerInput;
+          this.higherInput = higherInput;
+          this.minValue = minValue;
+          this.maxValue = maxValue;
+          this.step = step;
+          this.lowerValue = parseFloat($(this.lowerInput).val());
+          this.higherValue = parseFloat($(this.higherInput).val());
+        }
+    
+        createSlider() {
+          $(this.sliderContainer).slider({
+            min: this.minValue,
+            max: this.maxValue,
+            step: this.step,
+            values: [this.lowerValue, this.higherValue],
+            slide: (event, ui) => {
               if (ui.values[0] >= ui.values[1]) {
                 return false;
               }
-              $(lowerInput).val(ui.values[0]);
-              $(higherInput).val(ui.values[1]);
+              $(this.lowerInput).val(ui.values[0]);
+              $(this.higherInput).val(ui.values[1]);
             }
           });
-      
-          $(lowerInput).change(function() {
-            var value = parseFloat($(this).val());
-            if (value < minValue) {
-              value = minValue;
-            } else if (value > $(higherInput).val()) {
-              value = $(higherInput).val();
+          
+          $(this.lowerInput).change(() => {
+            var value = parseFloat($(this.lowerInput).val());
+            if (value < this.minValue) {
+              value = this.minValue;
+            } else if (value > $(this.higherInput).val()) {
+              value = $(this.higherInput).val();
             }
-            $(sliderContainer).slider("values", 0, value);
-            $(this).val(value);
+            $(this.sliderContainer).slider("values", 0, value);
+            $(this.lowerInput).val(value);
           });
-      
-          $(higherInput).change(function() {
-            var value = parseFloat($(this).val());
-            if (value > maxValue) {
-              value = maxValue;
-            } else if (value < $(lowerInput).val()) {
-              value = $(lowerInput).val();
+          
+          $(this.higherInput).change(() => {
+            var value = parseFloat($(this.higherInput).val());
+            if (value > this.maxValue) {
+              value = this.maxValue;
+            } else if (value < $(this.lowerInput).val()) {
+              value = $(this.lowerInput).val();
             }
-            $(sliderContainer).slider("values", 1, value);
-            $(this).val(value);
+            $(this.sliderContainer).slider("values", 1, value);
+            $(this.higherInput).val(value);
           });
         }
-      
-        // JS sliders used for brightness and frequency
-        createSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed", 0, 255, 1);
-        createSlider("#freqRed", "#minFreqRed", "#maxFreqRed", 100, 5000, 1);
-      
-        createSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen", 0, 255, 1);
-        createSlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen", 100, 5000, 1);
-      
-        createSlider("#brightnessBlue", "#minBrightnessBlue", "#maxBrightnessBlue", 0, 255, 1);
-        createSlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue", 100, 5000, 1);
-      
-        createSlider("#sleep", "#minSleep", "#maxSleep", 0, 1, 0.01);
-      });
-
-
-      // function createSlider(sliderId, amountId, minValue, maxValue, startValues) {
-      //   $( "#" + sliderId ).slider({
-      //     range: true,
-      //     min: minValue,
-      //     max: maxValue,
-      //     values: startValues,
-      //     slide: function( event, ui ) {
-      //       $( "#" + amountId ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      //     }
-      //   });
-      //   $( "#" + amountId ).val( "$" + $( "#" + sliderId ).slider( "values", 0 ) +
-      //     " - $" + $( "#" + sliderId ).slider( "values", 1 ) );
-      // }
-      
-      // $( function() {
-      //   $( "#slider-range" ).slider({
-      //     range: true,
-      //     min: 0,
-      //     max: 100,
-      //     values: [ 75, 300 ],
-      //     slide: function( event, ui ) {
-      //       $( "#amount" ).val( "$" + ui.values[ 0 ] + " - $" + ui.values[ 1 ] );
-      //       $( "#slider-values" ).val(ui.values[0] + "," + ui.values[1]);
-      //     }
-      //   });
-        
-      //   // Set the initial values for the slider and the hidden input element
-      //   $( "#slider-values" ).val($( "#slider-range" ).slider( "values", 0 ) + "," + $( "#slider-range" ).slider( "values", 1 ));
-      //   $( "#amount" ).val( "$" + $( "#slider-range" ).slider( "values", 0 ) +
-      //     " - $" + $( "#slider-range" ).slider( "values", 1 ) );
-      // });
-    </script>
-    <style>
-      .slider {
-        width:25%;
       }
-    </style>
-  </head>
-  <body>
-    <h1>Turn all leds OFF</h1>
-    <form action="{{ url_for('process_turnoff') }}" method="post">
-      <button type="submit">OFF</button>
-    </form>
-
-    <!-------------------------------------------------------->
-
-    <h1>Rainbow</h1>
-    <form action="{{ url_for('process_rainbow') }}" method="post">
-      <button type="submit">Start rainbow</button>
-      <!-- <button type="submit_stop">Stop</button> -->
-    </form>
-
-    <!-------------------------------------------------------->
-
-    <h1>Fireplace</h1>
-    
-    <form action="{{ url_for('process_fireplace') }}" method="post">
-
-      <h2>Red settings</h2>
-      <label for="minBrightnessRed">Min brightness:</label>
-      <input type="text" id="minBrightnessRed" name="minBrightnessRed" value="0">
-    
-      <label for="maxBrightnessRed">Max brightness:</label>
-      <input type="text" id="maxBrightnessRed" name="maxBrightnessRed" value="255">
-    
-      <div class="slider" id="brightnessRed"></div>
-    
-      <label for="minFreqRed">Min frequency:</label>
-      <input type="text" id="minFreqRed" name="minFreqRed" value="0">
-    
-      <label for="maxFreqRed">Max frequency:</label>
-      <input type="text" id="maxFreqRed" name="maxFreqRed" value="255">
-    
-      <div class="slider" id="freqRed"></div>
-
-     
-
-      <h2>Green settings</h2>
-      <label for="minBrightnessGreen">Min brightness:</label>
-      <input type="text" id="minBrightnessGreen" name="minBrightnessGreen" value="0">
-    
-      <label for="maxBrightnessGreen">Max brightness:</label>
-      <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="100">
-    
-      <div class="slider" id="brightnessGreen"></div>
-    
-      <label for="minFreqGreen">Min frequency:</label>
-      <input type="text" id="minFreqGreen" name="minFreqGreen" value="0">
-    
-      <label for="maxFreqGreen">Max frequency:</label>
-      <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="100">
-    
-      <div class="slider" id="freqGreen"></div>
-
       
-
-      <h2>Blue settings</h2>
-      <label for="minBrightnessBlue">Min brightness:</label>
-      <input type="text" id="minBrightnessBlue" name="minBrightnessBlue" value="0">
-    
-      <label for="maxBrightnessBlue">Max brightness:</label>
-      <input type="text" id="maxBrightnessBlue" name="maxBrightnessBlue" value="100">
-    
-      <div class="slider" id="brightnessBlue"></div>
-    
-      <label for="minFreqBlue">Min frequency:</label>
-      <input type="text" id="minFreqBlue" name="minFreqBlue" value="0">
-    
-      <label for="maxFreqBlue">Max frequency:</label>
-      <input type="text" id="maxFreqBlue" name="maxFreqBlue" value="100">
-
-      <div class="slider" id="freqBlue"></div>
-
+      class BrightnessSlider extends Slider {
+        constructor(sliderContainer, lowerInput, higherInput) {
+          super(sliderContainer, lowerInput, higherInput, 0, 255, 1);
+        }
+      }
       
-
-      <h2>Sleep (in seconds)</h2>
-
-      <label for="minSleep">Min sleep:</label>
-      <input type="text" id="minSleep" name="minSleep" value="0">
+      class FrequencySlider extends Slider {
+        constructor(sliderContainer, lowerInput, higherInput) {
+          super(sliderContainer, lowerInput, higherInput, 100, 5000, 1);
+        }
+      }
+      
+      class SleepSlider extends Slider {
+        constructor(sliderContainer, lowerInput, higherInput) {
+          super(sliderContainer, lowerInput, higherInput, 0, 1, 0.01);
+        }
+      }
     
-      <label for="maxSleep">Max sleep:</label>
-      <input type="text" id="maxSleep" name="maxSleep" value="1">     
-
-      <div class="slider" id="sleep"></div>
-
-      
-      
-      <button type="submit">Start fireplace</button>
-    </form>
-    <script>
-
-      // // Load data from JSON file
-      // function fetchJSON() {
-      //   const url = `gpio_states.json`;
-      //   fetch(url)
-      //   .then(response => response.json())
-      //   .then(data => {
-      //     // Update webpage with GPIO state data
-      //     document.getElementById('gpio12').innerText = data.gpio12;
-      //   });
-      // }
-
-      // function sendRequest(pin, state) {
-
-      // }
-      
-      // RedOnButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=12&state=1', true);
-      //   xhr.send();
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // RedOffButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=12&state=0', true);
-      //   xhr.send();
-
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // GreenOnButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=13&state=1', true);
-      //   xhr.send();
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // GreenOffButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=13&state=0', true);
-      //   xhr.send();
-
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // BlueOnButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=18&state=1', true);
-      //   xhr.send();
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // BlueOffButton.addEventListener('click', function() {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', '/gpio?pin=18&state=0', true);
-      //   xhr.send();
-
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // });
-
-      // function sendCommand(pin, state) {
-      //   var xhr = new XMLHttpRequest();
-      //   xhr.open('GET', `/gpio?pin=${pin}&state=${state}`, true);
-      //   xhr.send();
-      //   fetchJSON();
-      //   setInterval(fetchJSON, 500);
-      // }
-
-      // RedOnButton.addEventListener('click', () => sendCommand(12, 1));
-      // RedOffButton.addEventListener('click', () => sendCommand(12, 0));
-      // GreenOnButton.addEventListener('click', () => sendCommand(13, 1));
-      // GreenOffButton.addEventListener('click', () => sendCommand(13, 0));
-      // BlueOnButton.addEventListener('click', () => sendCommand(18, 1));
-      // BlueOffButton.addEventListener('click', () => sendCommand(18, 0));
+      const brightnessRedSlider = new BrightnessSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed");
+      brightnessRedSlider.createSlider();
+    
+      const freqRedSlider = new FrequencySlider("#freqRed", "#minFreqRed", "#maxFreqRed");
+      freqRedSlider.createSlider();
+    
+      const brightnessGreenSlider = new BrightnessSlider("#brightnessGreen", "#minBrightnessGreen", "#maxBrightnessGreen");
+      brightnessGreenSlider.createSlider();
+    
+      const freqGreenSlider = new FrequencySlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen");
+      freqGreenSlider.createSlider();
+    
+      const sleepSlider = new SleepSlider("#sleepSlider", "#minSleep", "#maxSleep");
+      sleepSlider.createSlider();
+    });
   </script>
-  </body>
+</head>
+<body>
+  <h1>LED Control</h1>
+  
+  <h2>Turn all LEDs OFF</h2>
+  <form action="{{ url_for('process_turnoff') }}" method="post">
+    <button type="submit">OFF</button>
+  </form>
+
+  <h2>Rainbow</h2>
+  <form action="{{ url_for('process_rainbow') }}" method="post">
+    <button type="submit">Start rainbow</button>
+  </form>
+
+  <h2>Fireplace</h2>
+  <form action="{{ url_for('process_fireplace') }}" method="post">
+    <div class="setting">
+      <h3>Red settings</h3>
+      <div class="slider-container">
+        <label for="minBrightnessRed">Min brightness:</label>
+        <input type="text" id="minBrightnessRed" name="minBrightnessRed" value="0">
+        <label for="maxBrightnessRed">Max brightness:</label>
+        <input type="text" id="maxBrightnessRed" name="maxBrightnessRed" value="255">
+        <div class="slider" id="brightnessRed"></div>
+      </div>
+      <div class="slider-container">
+        <label for="minFreqRed">Min frequency:</label>
+        <input type="text" id="minFreqRed" name="minFreqRed" value="0">
+        <label for="maxFreqRed">Max frequency:</label>
+        <input type="text" id="maxFreqRed" name="maxFreqRed" value="255">
+        <div class="slider" id="freqRed"></div>
+      </div>
+    </div>
+
+    <div class="setting">
+      <h3>Green settings</h3>
+      <div class="slider-container">
+        <label for="minBrightnessGreen">Min brightness:</label>
+        <input type="text" id="minBrightnessGreen" name="minBrightnessGreen" value="0">
+        <label for="maxBrightnessGreen">Max brightness:</label>
+        <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="100">
+        <div class="slider" id="brightnessGreen"></div>
+      </div>
+      <div class="slider-container">
+        <label for="minFreqGreen">Min frequency:</label>
+        <input type="text" id="minFreqGreen" name="minFreqGreen" value="0">
+        <label for="maxFreqGreen">Max frequency:</label>
+        <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="255">
+        <div class="slider" id="freqGreen"></div>
+      </div>
+    </div>
+    
+    <div class="setting">
+      <h3>Sleep settings</h3>
+      <div class="slider-container">
+        <label for="minSleep">Min sleep time:</label>
+        <input type="text" id="minSleep" name="minSleep" value="0">
+        <label for="maxSleep">Max sleep time:</label>
+        <input type="text" id="maxSleep" name="maxSleep" value="1">
+        <div class="slider" id="sleepSlider"></div>
+      </div>
+    </div>
+
+    <button type="submit">Start fireplace</button>
+  </form>
+</body>
 </html>
