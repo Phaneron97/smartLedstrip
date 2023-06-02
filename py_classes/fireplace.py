@@ -56,43 +56,50 @@ from py_classes.led import LED
 
 class Fireplace():
     def __init__(self, red_pin, green_pin, blue_pin):
-        # self.leds = [LED(red_pin), LED(green_pin), LED(blue_pin)]
-        # self.red_pin = red_pin
-        # self.green_pin = green_pin
-        # self.blue_pin = blue_pin
-
-        # New
-        # super().__init__(red_pin)
         self.red_pin = LED(red_pin)
         self.green_pin = LED(green_pin)
         self.blue_pin = LED(blue_pin)
+        
         self.fireplace_running = False
         
         # self.red_fader = Fading(red_pin)
-        # self.red_pulser = Pulsing(red_pin)
+        # self.red_pulser = Pulsing(self.red_pin)
         
         # self.green_fader = Fading(green_pin)
-        # self.green_pulser = Pulsing(green_pin)
+        # self.green_pulser = Pulsing(self.green_pin)
         
         # self.blue_fader = Pulsing(blue_pin)
-        # self.blue_pulser = Pulsing(blue_pin)
+        # self.blue_pulser = Pulsing(self.blue_pin)
+        
+    def fade_in(self, led, target_brightness, duration, running_status = False):
+        current_brightness = led.get_duty_cycle()
+        step = (target_brightness - current_brightness) / duration
+        for _ in range(duration):
+            if running_status == True:
+                current_brightness += step
+                led.set_duty_cycle(int(current_brightness))
+                time.sleep(1)
+            else:
+                break
+        led.set_duty_cycle(target_brightness)
+    
+    def fade_out(self, led, target_brightness, duration, running_status = False):
+        current_brightness = led.get_duty_cycle()
+        step = (current_brightness - target_brightness) / duration
+        for _ in range(duration):
+            if running_status == True:
+                current_brightness -= step
+                led.set_duty_cycle(int(current_brightness))
+                time.sleep(1)
+            else:
+                break
+        led.set_duty_cycle(target_brightness)
 
 
-    def flicker(self, 
-        minBrightnessRed, 
-        maxBrightnessRed,
-        minFreqRed,
-        maxFreqRed,
-        minBrightnessGreen,
-        maxBrightnessGreen,
-        minFreqGreen,
-        maxFreqGreen,
-        minBrightnessBlue,
-        maxBrightnessBlue,
-        minFreqBlue,
-        maxFreqBlue,
-        minSleep,
-        maxSleep):
+    def flicker(self, minBrightnessRed, maxBrightnessRed, minFreqRed, maxFreqRed,
+        minBrightnessGreen, maxBrightnessGreen, minFreqGreen, maxFreqGreen,
+        minBrightnessBlue, maxBrightnessBlue, minFreqBlue, maxFreqBlue,
+        minSleep, maxSleep):
         
         red_duty_cycle = int(random.uniform(minBrightnessRed, maxBrightnessRed))
         red_frequency = int(random.uniform(minFreqRed, maxFreqRed))
@@ -118,50 +125,30 @@ class Fireplace():
 
         # self.red_fader.fade_in(red_duty_cycle)
         # self.green_fader.fade_in(green_duty_cycle)
-        # self.blue_pulser.pulse(blue_duty_cycle)
+        # self.blue_fader.fade_in(blue_duty_cycle)
 
         # self.red_fader.fade_out(red_duty_cycle)
         # self.green_fader.fade_out(green_duty_cycle)
+        # self.blue_fader.fade_out(blue_duty_cycle)
+        
+        # self.fade_in(self.red_pin, red_duty_cycle, 10, self.fireplace_running)
         
 
         sleep_time = random.uniform(minSleep, maxSleep)
         time.sleep(sleep_time)
 
 
-    def start(
-        self, 
-        minBrightnessRed, 
-        maxBrightnessRed,
-        minFreqRed,
-        maxFreqRed,
-        minBrightnessGreen,
-        maxBrightnessGreen,
-        minFreqGreen,
-        maxFreqGreen,
-        minBrightnessBlue,
-        maxBrightnessBlue,
-        minFreqBlue,
-        maxFreqBlue,
-        minSleep,
-        maxSleep):
+    def start(self, minBrightnessRed, maxBrightnessRed,minFreqRed,maxFreqRed,
+              minBrightnessGreen,maxBrightnessGreen,minFreqGreen,maxFreqGreen,
+              minBrightnessBlue,maxBrightnessBlue,minFreqBlue,maxFreqBlue,
+              minSleep,maxSleep):
         # try:
         self.fireplace_running = True
         while self.fireplace_running:
-            self.flicker(
-                minBrightnessRed, 
-                maxBrightnessRed,
-                minFreqRed,
-                maxFreqRed,
-                minBrightnessGreen,
-                maxBrightnessGreen,
-                minFreqGreen,
-                maxFreqGreen,
-                minBrightnessBlue,
-                maxBrightnessBlue,
-                minFreqBlue,
-                maxFreqBlue,
-                minSleep,
-                maxSleep)
+            self.flicker(minBrightnessRed, maxBrightnessRed, minFreqRed, maxFreqRed,
+                         minBrightnessGreen,maxBrightnessGreen,minFreqGreen,maxFreqGreen,
+                         minBrightnessBlue,maxBrightnessBlue,minFreqBlue,maxFreqBlue,
+                         minSleep,maxSleep)
                 # self.time.sleep(random.uniform(0.08, 0.15))
         # except KeyboardInterrupt:
         #     for led in self.leds:

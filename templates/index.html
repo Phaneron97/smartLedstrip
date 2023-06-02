@@ -89,6 +89,12 @@
     
       const freqGreenSlider = new FrequencySlider("#freqGreen", "#minFreqGreen", "#maxFreqGreen");
       freqGreenSlider.createSlider();
+
+      const brightnessBlueSlider = new FrequencySlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue");
+      brightnessBlueSlider.createSlider();
+
+      const freqBlueSlider = new FrequencySlider("#freqBlue", "#minFreqBlue", "#maxFreqBlue");
+      freqBlueSlider.createSlider();
     
       const sleepSlider = new SleepSlider("#sleepSlider", "#minSleep", "#maxSleep");
       sleepSlider.createSlider();
@@ -121,9 +127,9 @@
       </div>
       <div class="slider-container">
         <label for="minFreqRed">Min frequency:</label>
-        <input type="text" id="minFreqRed" name="minFreqRed" value="0">
+        <input type="text" id="minFreqRed" name="minFreqRed" value="50">
         <label for="maxFreqRed">Max frequency:</label>
-        <input type="text" id="maxFreqRed" name="maxFreqRed" value="255">
+        <input type="text" id="maxFreqRed" name="maxFreqRed" value="200">
         <div class="slider" id="freqRed"></div>
       </div>
     </div>
@@ -134,15 +140,33 @@
         <label for="minBrightnessGreen">Min brightness:</label>
         <input type="text" id="minBrightnessGreen" name="minBrightnessGreen" value="0">
         <label for="maxBrightnessGreen">Max brightness:</label>
-        <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="100">
+        <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="255">
         <div class="slider" id="brightnessGreen"></div>
       </div>
       <div class="slider-container">
         <label for="minFreqGreen">Min frequency:</label>
-        <input type="text" id="minFreqGreen" name="minFreqGreen" value="0">
+        <input type="text" id="minFreqGreen" name="minFreqGreen" value="50">
         <label for="maxFreqGreen">Max frequency:</label>
-        <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="255">
+        <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="200">
         <div class="slider" id="freqGreen"></div>
+      </div>
+    </div>
+
+    <div class="setting">
+      <h3>Blue settings</h3>
+      <div class="slider-container">
+        <label for="minBrightnessBlue">Min brightness:</label>
+        <input type="text" id="minBrightnessBlue" name="minBrightnessBlue" value="0">
+        <label for="maxBrightnessBlue">Max brightness:</label>
+        <input type="text" id="maxBrightnessBlue" name="maxBrightnessBlue" value="255">
+        <div class="slider" id="brightnessBlue"></div>
+      </div>
+      <div class="slider-container">
+        <label for="minFreqBlue">Min frequency:</label>
+        <input type="text" id="minFreqBlue" name="minFreqBlue" value="50">
+        <label for="maxFreqBlue">Max frequency:</label>
+        <input type="text" id="maxFreqBlue" name="maxFreqBlue" value="200">
+        <div class="slider" id="freqBlue"></div>
       </div>
     </div>
     
