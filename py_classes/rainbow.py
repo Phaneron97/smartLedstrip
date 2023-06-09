@@ -47,17 +47,8 @@ class Rainbow:
     def turn_off(self):
         # Set the flag variable to False to break out of the while loop in the thread
         self.rainbow_running = False
-        # print("set running is false rainbow")
-        # time.sleep(5)
-
-        # Wait for the thread to finish
-        # rainbow_thread.join()
 
         # Stop the PWM for each LED color
         self.red_pin.turn_off()
         self.green_pin.turn_off()
         self.blue_pin.turn_off()
-        # print("leds turned off rainbow")
-
-        # Reset the thread variable
-        # rainbow_thread = None

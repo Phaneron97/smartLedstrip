@@ -28,19 +28,13 @@
 
 class HSVtoRGB:
     
-    # def convert_range(self, value, convert_to=255):
-    #     converted_value = round(value * 100 / convert_to)
-    #     if converted_value <= 50:
-    #         return 0
-    #     return converted_value
-    
     def validate_hsv(self, hue, saturation, value):
         # Validate input types
         if not isinstance(hue, int):
             raise ValueError("Invalid float for 'hue'")
-        if not isinstance(saturation, float):
+        if not isinstance(saturation, (float, int)):
             raise ValueError("Invalid float for 'saturation'")
-        if not isinstance(value, float):
+        if not isinstance(value, (float, int)):
             raise ValueError("Invalid float for 'value'")
 
         # Validate input value ranges
@@ -50,7 +44,8 @@ class HSVtoRGB:
             raise ValueError("'saturation' be between 0.0 and 1.0.")
         if not (0.0 <= value <= 1.0):
             raise ValueError("'value' be between 0.0 and 1.0.")
-    
+        if not isinstance(hue, int):
+            raise ValueError("'hue' must be an integer.")
     
     def convert(self, hue, saturation=1.0, value=1.0):
         self.validate_hsv(hue, saturation, value)
@@ -72,6 +67,8 @@ class HSVtoRGB:
             red, green, blue = x, 0, chroma
         elif 300 <= hue < 360:
             red, green, blue = chroma, 0, x
+        else:
+            raise ValueError("hue outside possible range")
         
         # Get value between 0-255 for dutycycle
         r = (red + m) * 255
@@ -79,7 +76,7 @@ class HSVtoRGB:
         b = (blue + m) * 255
         
         # print (int(r), int(g), int(b))
-        return (r, g, b)
+        return (int(r), int(g), int(b))
             
 
 # hsv_to_rgb = HSVtoRGB()

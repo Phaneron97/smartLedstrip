@@ -3,21 +3,21 @@ import pigpio
 from py_classes.led import LED
 
 class Pulsing(LED):
-    def __init__(self, led, frequency=100, range_=100):
-        self.led = led
-        self.frequency = frequency
-        self.range = range_
+    def __init__(self, pin):
+        super().__init__(pin)
+        # self.frequency = frequency
+        self.range = 255
 
-    def pulse(self, duration):
-        self.led.set_frequency(self.frequency)
-        self.led.set_duty_cycle(0)
+    def pulse(self, duration, running = True):
+        self.set_frequency(self.get_frequency())
+        self.set_duty_cycle(0)
 
         for duty_cycle in range(0, self.range+1):
-            self.led.set_duty_cycle(duty_cycle)
+            self.set_duty_cycle(duty_cycle)
             time.sleep(duration / self.range)
 
         for duty_cycle in range(self.range, -1, -1):
-            self.led.set_duty_cycle(duty_cycle)
+            self.set_duty_cycle(duty_cycle)
             time.sleep(duration / self.range)
 
     def stop(self):
