@@ -251,17 +251,18 @@
 from flask import Flask, render_template, redirect, url_for, request
 import threading
 import time
-from py_classes.fireplace import Fireplace
-from py_classes.rainbow import Rainbow
-from py_classes.thread import ThreadManager
-from py_classes.ledcontroller import LEDController
+from py_classes.fireplace import Fireplace # Lighting effect
+from py_classes.rainbow import Rainbow # Lighting effect
+from py_classes.colorpicker import Colorpicker # Lighting effect
+from py_classes.thread import ThreadManager # Threading between lighting effects
+from py_classes.ledcontroller import LEDController # Controlling threading and starting lighting effects
 
-# red_pin = 12
-# green_pin = 13
-# blue_pin = 18
+red_pin = 12
+green_pin = 13
+blue_pin = 18
 
 app = Flask(__name__)
-led_controller = LEDController()
+led_controller = LEDController(red_pin, green_pin, blue_pin)
 
 @app.route("/")
 def index():
@@ -269,22 +270,46 @@ def index():
 
 
 @app.route("/process_turnoff", methods=['POST'])
-def process_turnoff():
-    if led_controller.fireplace_thread is not None:
-        led_controller.fireplace.turn_off()
-        led_controller.fireplace_thread.join()
-        led_controller.fireplace_thread = None
+# def process_turnoff():
+#     if led_controller.fireplace_thread is not None:
+#         led_controller.fireplace.turn_off()
+#         led_controller.fireplace_thread.join()
+#         led_controller.fireplace_thread = None
 
-    if led_controller.rainbow_thread is not None:
-        led_controller.rainbow.turn_off()
-        led_controller.rainbow_thread.join()
-        led_controller.rainbow_thread = None
+#     if led_controller.rainbow_thread is not None:
+#         led_controller.rainbow.turn_off()
+#         led_controller.rainbow_thread.join()
+#         led_controller.rainbow_thread = None
+        
+#     if led_controller.colorpicker_thread is not None:
+#         led_controller.colorpicker.turn_off()
+#         led_controller.colorpicker_thread.join()
+#         led_controller.colorpicker_thread = None
+
+#     return render_template('index.html')
+
+def process_turnoff():    
+    # dictionary of possible open threads
+    thread_mapping = {
+        'fireplace': led_controller.fireplace_thread,
+        'rainbow': led_controller.rainbow_thread,
+        'colorpicker': led_controller.colorpicker_thread
+    }
+
+    # loop through all threads, when one is not none (IE open), terminate it (join)
+    for thread_name, thread in thread_mapping.items():
+        if thread is not None:
+            getattr(led_controller, thread_name).turn_off() # get object from current led_cntroller and call turn_off function
+            thread.terminate() # terminate (join) thread
+            setattr(led_controller, f"{thread_name}_thread", None) # clean up thread to consider it completed, continue on main
 
     return render_template('index.html')
 
 
 @app.route("/process_fireplace", methods=['POST'])
-def process_fireplace():
+def process_fireplace():    
+    process_turnoff()
+    
     form_fields = {
         'minBrightnessRed': 'min_brightness_red',
         'maxBrightnessRed': 'max_brightness_red',
@@ -303,31 +328,30 @@ def process_fireplace():
     }
 
     values = led_controller.get_form_field_values(form_fields)
-    
-    if led_controller.fireplace_thread is None:
-        if led_controller.rainbow_thread is not None:
-            led_controller.rainbow.turn_off()
-            led_controller.rainbow_thread.terminate()
-            led_controller.rainbow_thread = None
-        
+
+    if led_controller.values_changed(values, led_controller.fireplace_values):
+        print("values in fireplace have changed")
+        led_controller.fireplace_values = values
+
+        if led_controller.fireplace_thread is not None and led_controller.fireplace_thread.alive():
+            led_controller.fireplace_thread.terminate()
+            led_controller.fireplace_thread = None
+
         led_controller.fireplace_thread = ThreadManager(target=led_controller.start_fireplace, args=values)
-    
+
     if not led_controller.fireplace_thread.alive():
         led_controller.fireplace_thread.start()
         print("Fireplace started")
-            
+
     return render_template('index.html')
+
 
 
 @app.route("/process_rainbow", methods=['POST'])
 def process_rainbow():
-    if led_controller.rainbow_thread is None:
-        if led_controller.fireplace_thread is not None:
-            led_controller.fireplace.turn_off()
-            led_controller.fireplace_thread.terminate()
-            led_controller.fireplace_thread = None
+    process_turnoff()
         
-        led_controller.rainbow_thread = ThreadManager(target=led_controller.start_rainbow)
+    led_controller.rainbow_thread = ThreadManager(target=led_controller.start_rainbow)
     
     if not led_controller.rainbow_thread.alive():
         led_controller.rainbow_thread.start()
@@ -336,5 +360,22 @@ def process_rainbow():
     return render_template('index.html')
 
 
+@app.route("/process_colorpicker", methods=['POST'])
+def process_colorpicker():
+    process_turnoff() 
+    hexcolor = request.form['favcolor']
+    print("User wants color:", hexcolor)    
+
+    led_controller.colorpicker_thread = ThreadManager(target=led_controller.start_colorpicker, args=(hexcolor,))
+    
+    if not led_controller.colorpicker_thread.alive():
+        led_controller.colorpicker_thread.start()
+        print("Colorpicker started")
+
+    return render_template('index.html')
+
+
+
+# finally start the server
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host="0.0.0.0")
