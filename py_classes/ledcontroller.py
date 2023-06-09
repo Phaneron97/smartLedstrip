@@ -16,6 +16,7 @@ class LEDController:
         self.rainbow_thread = None
         self.colorpicker_thread = None
 
+    ########### lighting effects start ##############
     def start_fireplace(self, *args):
         self.fireplace.start(*args)
 
@@ -24,13 +25,14 @@ class LEDController:
         
     def start_colorpicker(self, hexcolor):
         self.colorpicker.start(hexcolor)
+    ############# end lighting effects start ###########
 
     def get_form_field_values(self, form_fields):
         values = {} # Empty value list
         print("empty list values")
-        for form_field, variable_name in form_fields.items():
-            values[variable_name] = float(request.form.get(form_field))
-        return [values[key] for key in form_fields.values()]
+        for form_field, variable_name in form_fields.items(): # print over set of items in form_fields
+            values[variable_name] = float(request.form.get(form_field)) # Get frontend value with same name and add to values arr
+        return [values[key] for key in form_fields.values()] # return values arr with key and value
     
     
     def values_changed(self, new_values, old_values):
@@ -41,5 +43,5 @@ class LEDController:
             if new_val != old_val: # if new values does not equal old value, so the values have changed, return true
                 return True
 
-        return False
+        return False # false if values have not changed
 

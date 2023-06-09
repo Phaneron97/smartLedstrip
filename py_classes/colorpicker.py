@@ -13,24 +13,24 @@ class Colorpicker:
         self.blue_pin = LED(blue_pin)
         self.colorpicker_running = False
         
-    def hex_to_rgb(self, hex_code):
-        if hex_code.startswith('#'):
+    def hex_to_rgb(self, hex_code): # Get hexcode from frontend (template/index.html)
+        if hex_code.startswith('#'): # Check if hexcode starts with #
             hex_code = hex_code[1:]
         else:
             raise ValueError("Invalid hex code. It should start with '#' symbol.")
         
-        if len(hex_code) != 6:
+        if len(hex_code) != 6: # Check if hexcode is 6 chars long
             raise ValueError("Invalid hex code. It should have exactly six characters.")
     
-        red = int(hex_code[0:2], 16)
+        red = int(hex_code[0:2], 16) # Hex to Dec
         green = int(hex_code[2:4], 16)
         blue = int(hex_code[4:6], 16)
         
-        return (red, green, blue)
+        return (red, green, blue) # Return final RGB values as a tuple
         
     def start(self, hexcolor):
         
-        starting_frequency = 100
+        starting_frequency = 100 # Hz
         
         # set starting frequency of all leds
         self.red_pin.set_frequency(starting_frequency)
@@ -41,7 +41,7 @@ class Colorpicker:
         
         self.colorpicker_running = True
         
-        while self.colorpicker_running:
+        while self.colorpicker_running: # Keep dutycycle constant
             self.red_pin.set_duty_cycle(red)
             self.green_pin.set_duty_cycle(green)
             self.blue_pin.set_duty_cycle(blue)

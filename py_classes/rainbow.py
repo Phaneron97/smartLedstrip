@@ -18,7 +18,7 @@ class Rainbow:
         
     def start(self):
         current_hue = 0 # starting hue
-        starting_frequency = 100
+        starting_frequency = 100 # Hz
         
         # set starting frequency of all leds
         self.red_pin.set_frequency(starting_frequency)
@@ -27,7 +27,7 @@ class Rainbow:
         
         self.rainbow_running = True
         while self.rainbow_running:
-            for hue in range(361):                
+            for hue in range(361): # Range of hue              
                 red, green, blue = self.hsv_to_rgb.convert(current_hue) # Convert the current hue value to RGB using the HSVtoRGB converter
 
                 if self.rainbow_running == True: # Check if rainbow effect is turned on, if not: break immediatly

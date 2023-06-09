@@ -1,35 +1,6 @@
-# class HSVtoRGB:
-#     def convert(self, hue, saturation=1.0, value=1.0):
-#         c = value * saturation
-#         x = c * (1 - abs(((hue/60) % 2) - 1))
-#         m = value - c
-
-#         if 0 <= hue < 60:
-#             red, green, blue = c, x, 0
-#         elif 60 <= hue < 120:
-#             red, green, blue = x, c, 0
-#         elif 120 <= hue < 180:
-#             red, green, blue = 0, c, x
-#         elif 180 <= hue < 240:
-#             red, green, blue = 0, x, c
-#         elif 240 <= hue < 300:
-#             red, green, blue = x, 0, c
-#         elif 300 <= hue < 360:
-#             red, green, blue = c, 0, x
-#         else:
-#             red, green, blue = 0, 0, 0
-
-#         # Scale the RGB values from the range [0, 1] to [0, 255]
-#         red = int((red + m) * 100)
-#         green = int((green + m) * 100)
-#         blue = int((blue + m) * 100)
-
-#         return (red, green, blue)
-
-class HSVtoRGB:
-    
-    def validate_hsv(self, hue, saturation, value):
-        # Validate input types
+class HSVtoRGB:    
+    def validate_hsv(self, hue, saturation, value): # Validate input from rainbow loop
+        # Validate input datatypes
         if not isinstance(hue, int):
             raise ValueError("Invalid float for 'hue'")
         if not isinstance(saturation, (float, int)):
@@ -50,7 +21,8 @@ class HSVtoRGB:
     def convert(self, hue, saturation=1.0, value=1.0):
         self.validate_hsv(hue, saturation, value)
         
-        chroma = saturation * value # calc chroma
+        # HSV -> RGB conversion algorithm found on internet
+        chroma = saturation * value 
         x = chroma * (1 - abs((hue / 60) % 2 - 1)) 
         m = value - chroma
         
@@ -76,10 +48,4 @@ class HSVtoRGB:
         b = (blue + m) * 255
         
         # print (int(r), int(g), int(b))
-        return (int(r), int(g), int(b))
-            
-
-# hsv_to_rgb = HSVtoRGB()
-
-# for i in range(360):    
-#     print(hsv_to_rgb.convert(i, 1, 1))
+        return (int(r), int(g), int(b)) # Return final RGB values as tuple

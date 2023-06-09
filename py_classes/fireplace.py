@@ -77,24 +77,12 @@ class Fireplace():
               minBrightnessGreen,maxBrightnessGreen,minFreqGreen,maxFreqGreen,
               minBrightnessBlue,maxBrightnessBlue,minFreqBlue,maxFreqBlue,
               minSleep,maxSleep):
-        # try:
         self.fireplace_running = True
         while self.fireplace_running:
             self.flicker(minBrightnessRed, maxBrightnessRed, minFreqRed, maxFreqRed,
                          minBrightnessGreen,maxBrightnessGreen,minFreqGreen,maxFreqGreen,
                          minBrightnessBlue,maxBrightnessBlue,minFreqBlue,maxFreqBlue,
                          minSleep,maxSleep)
-                # self.time.sleep(random.uniform(0.08, 0.15))
-        # except KeyboardInterrupt:
-        #     for led in self.leds:
-        #         led.pwm.stop()
-        #     GPIO.cleanup()
-
-    # def turn_off(self):
-    #     # Stop the PWM for each LED color
-    #     self.red_pin.turn_off()
-    #     self.green_pin.turn_off()
-    #     self.blue_pin.turn_off()
     
     def turn_off(self):
         self.fireplace_running = False
