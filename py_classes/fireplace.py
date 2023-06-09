@@ -52,6 +52,9 @@ class Fireplace():
                 minBrightnessBlue, maxBrightnessBlue, minFreqBlue, maxFreqBlue,
                 minSleep, maxSleep):
         
+        #################### using subeffects ######################
+        # wont work because of threading handling loops in loops
+        
         # Choose random effects and durations
         # red_effect = random.choice([self.red_fader.fade_in, self.red_fader.fade_out, self.red_pulser.pulse])
         # red_duration = random.uniform(minSleep, maxSleep)
@@ -67,7 +70,16 @@ class Fireplace():
         # green_effect(green_duration, self.fireplace_running)
         # blue_effect(blue_duration, self.fireplace_running)
         
+        #############################################################################
         
+        # Set dutycycles
+        self.red_pin.set_dutycycle(int(random.uniform(minBrightnessRed, maxBrightnessRed)))
+        self.green_pin.set_dutycycle(int(random.uniform(minBrightnessGreen, maxBrightnessGreen)))
+        self.blue_pin.set_dutycycle(int(random.uniform(minBrightnessBlue, maxBrightnessBlue)))
+        
+        self.red_pin.set_frequency(int(random.uniform(minFreqRed, maxFreqRed)))
+        self.green_pin.set_frequency(int(random.uniform(minFreqGreen, maxFreqGreen)))
+        self.blue_pin.set_frequency(int(random.uniform(minFreqBlue, maxFreqBlue)))
         
         sleep_time = random.uniform(minSleep, maxSleep)
         time.sleep(sleep_time)

@@ -42,9 +42,9 @@ class Colorpicker:
         self.colorpicker_running = True
         
         while self.colorpicker_running: # Keep dutycycle constant
-            self.red_pin.set_duty_cycle(red)
-            self.green_pin.set_duty_cycle(green)
-            self.blue_pin.set_duty_cycle(blue)
+            self.red_pin.set_dutycycle(red)
+            self.green_pin.set_dutycycle(green)
+            self.blue_pin.set_dutycycle(blue)
 
     def turn_off(self):
         # Set the flag variable to False to break out of the while loop in the thread

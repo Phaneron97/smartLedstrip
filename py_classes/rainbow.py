@@ -31,9 +31,9 @@ class Rainbow:
                 red, green, blue = self.hsv_to_rgb.convert(current_hue) # Convert the current hue value to RGB using the HSVtoRGB converter
 
                 if self.rainbow_running == True: # Check if rainbow effect is turned on, if not: break immediatly
-                    self.red_pin.set_duty_cycle(red)
-                    self.green_pin.set_duty_cycle(green)
-                    self.blue_pin.set_duty_cycle(blue)
+                    self.red_pin.set_dutycycle(red)
+                    self.green_pin.set_dutycycle(green)
+                    self.blue_pin.set_dutycycle(blue)
                 else:
                     break
 

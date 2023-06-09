@@ -15,6 +15,7 @@ class LEDController:
         self.fireplace_thread = None
         self.rainbow_thread = None
         self.colorpicker_thread = None
+        self.fireplace_values = []
 
     ########### lighting effects start ##############
     def start_fireplace(self, *args):
