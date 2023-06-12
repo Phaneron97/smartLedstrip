@@ -43,8 +43,6 @@ def process_turnoff():
 
 @app.route("/process_fireplace", methods=['POST'])
 def process_fireplace():    
-    process_turnoff()
-    
     # make a set form_fields (unordered, unchangeable, unindexed)
     form_fields = {
         'minBrightnessRed': 'min_brightness_red',
@@ -64,18 +62,19 @@ def process_fireplace():
     }
 
     values = led_controller.get_form_field_values(form_fields) # Get form fields from form_fields and 
-
     if led_controller.values_changed(values, led_controller.fireplace_values):
+        process_turnoff() # Reset all pins and threads
         print("values in fireplace have changed")
-        led_controller.fireplace_values = values
+        led_controller.fireplace_values = values # Store new values in fireplace_values
 
-        if led_controller.fireplace_thread is not None and led_controller.fireplace_thread.alive():
-            led_controller.fireplace_thread.terminate()
-            led_controller.fireplace_thread = None
+        # if led_controller.fireplace_thread is not None and led_controller.fireplace_thread.alive():
+        #     print("fireplace is still alive")
+        #     led_controller.fireplace_thread.terminate()
+        #     led_controller.fireplace_thread = None
 
         led_controller.fireplace_thread = ThreadManager(target=led_controller.start_fireplace, args=values)
 
-    if not led_controller.fireplace_thread.alive():
+    if led_controller.fireplace_thread is not None and not led_controller.fireplace_thread.alive():
         led_controller.fireplace_thread.start()
         print("Fireplace started")
 
@@ -88,7 +87,7 @@ def process_rainbow():
         
     led_controller.rainbow_thread = ThreadManager(target=led_controller.start_rainbow)
     
-    if not led_controller.rainbow_thread.alive():
+    if led_controller.rainbow_thread is not None and not led_controller.rainbow_thread.alive():
         led_controller.rainbow_thread.start()
         print("Rainbow started")
     
@@ -103,7 +102,7 @@ def process_colorpicker():
 
     led_controller.colorpicker_thread = ThreadManager(target=led_controller.start_colorpicker, args=(hexcolor,))
     
-    if not led_controller.colorpicker_thread.alive():
+    if led_controller.colorpicker_thread is not None and not led_controller.colorpicker_thread.alive():
         led_controller.colorpicker_thread.start()
         print("Colorpicker started")
 
