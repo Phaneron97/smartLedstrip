@@ -62,6 +62,7 @@ def process_fireplace():
     }
 
     values = led_controller.get_form_field_values(form_fields) # Get form fields from form_fields and 
+    print("current values:", values)
     if led_controller.values_changed(values, led_controller.fireplace_values):
         process_turnoff() # Reset all pins and threads
         print("values in fireplace have changed")
@@ -75,6 +76,7 @@ def process_fireplace():
         led_controller.fireplace_thread = ThreadManager(target=led_controller.start_fireplace, args=values)
 
     if led_controller.fireplace_thread is not None and not led_controller.fireplace_thread.alive():
+        
         led_controller.fireplace_thread.start()
         print("Fireplace started")
 
@@ -84,11 +86,13 @@ def process_fireplace():
 @app.route("/process_rainbow", methods=['POST'])
 def process_rainbow():
     process_turnoff()
-        
+
+    # Set rainbow_thread
     led_controller.rainbow_thread = ThreadManager(target=led_controller.start_rainbow)
     
+    # Check if rainbow thread is not none and not already alive (running)
     if led_controller.rainbow_thread is not None and not led_controller.rainbow_thread.alive():
-        led_controller.rainbow_thread.start()
+        led_controller.rainbow_thread.start() # start thread and keep running within loop of rainbow
         print("Rainbow started")
     
     return render_template('index.html')
@@ -99,7 +103,7 @@ def process_colorpicker():
     process_turnoff() 
     hexcolor = request.form['favcolor']
     print("User wants color:", hexcolor)    
-
+    
     led_controller.colorpicker_thread = ThreadManager(target=led_controller.start_colorpicker, args=(hexcolor,))
     
     if led_controller.colorpicker_thread is not None and not led_controller.colorpicker_thread.alive():
