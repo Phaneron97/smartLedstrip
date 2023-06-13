@@ -99,87 +99,65 @@
       const sleepSlider = new SleepSlider("#sleepSlider", "#minSleep", "#maxSleep");
       sleepSlider.createSlider();
 
-      // premade fireplace settings
-      function handlePremadeSettings() {
-        const settings = {
-          redFlame: {
-            brightnessRed: [50, 255],
-            freqRed: [50, 500],
-            brightnessGreen: [0, 4],
-            freqGreen: [200, 2000],
-            brightnessBlue: [0, 2],
-            freqBlue: [100, 2000],
-            sleep: [0.07, 0.15]
-          },
-          greenFlame: {
-            brightnessRed: [0, 7],
-            freqRed: [200, 2000],
-            brightnessGreen: [50, 255],
-            freqGreen: [50, 500],
-            brightnessBlue: [0, 3],
-            freqBlue: [400, 800],
-            sleep: [0.07, 0.15]
-          },
-          blueFlame: {
-            brightnessRed: [0, 6],
-            freqRed: [200, 2000],
-            brightnessGreen: [0, 2],
-            freqGreen: [200, 2000],
-            brightnessBlue: [50, 255],
-            freqBlue: [50, 500],
-            sleep: [0.07, 0.15]
-          },
-        };
-
-        const selectedSetting = $("#premadeSettings").val();
-        const selectedValues = settings[selectedSetting];
-
-        // Update slider values with selected premade settings
-        brightnessRedSlider.lowerValue = selectedValues.brightnessRed[0];
-        brightnessRedSlider.higherValue = selectedValues.brightnessRed[1];
-        brightnessRedSlider.createSlider();
-        $("#minBrightnessRed").val(selectedValues.brightnessRed[0]);
-        $("#maxBrightnessRed").val(selectedValues.brightnessRed[1]);
-
-        freqRedSlider.lowerValue = selectedValues.freqRed[0];
-        freqRedSlider.higherValue = selectedValues.freqRed[1];
-        freqRedSlider.createSlider();
-        $("#minFreqRed").val(selectedValues.freqRed[0]);
-        $("#maxFreqRed").val(selectedValues.freqRed[1]);
-
-        brightnessGreenSlider.lowerValue = selectedValues.brightnessGreen[0];
-        brightnessGreenSlider.higherValue = selectedValues.brightnessGreen[1];
-        brightnessGreenSlider.createSlider();
-        $("#minBrightnessGreen").val(selectedValues.brightnessGreen[0]);
-        $("#maxBrightnessGreen").val(selectedValues.brightnessGreen[1]);
-
-        freqGreenSlider.lowerValue = selectedValues.freqGreen[0];
-        freqGreenSlider.higherValue = selectedValues.freqGreen[1];
-        freqGreenSlider.createSlider();
-        $("#minFreqGreen").val(selectedValues.freqGreen[0]);
-        $("#maxFreqGreen").val(selectedValues.freqGreen[1]);
-
-        brightnessBlueSlider.lowerValue = selectedValues.brightnessBlue[0];
-        brightnessBlueSlider.higherValue = selectedValues.brightnessBlue[1];
-        brightnessBlueSlider.createSlider();
-        $("#minBrightnessBlue").val(selectedValues.brightnessBlue[0]);
-        $("#maxBrightnessBlue").val(selectedValues.brightnessBlue[1]);
-
-        freqBlueSlider.lowerValue = selectedValues.freqBlue[0];
-        freqBlueSlider.higherValue = selectedValues.freqBlue[1];
-        freqBlueSlider.createSlider();
-        $("#minFreqBlue").val(selectedValues.freqBlue[0]);
-        $("#maxFreqBlue").val(selectedValues.freqBlue[1]);
-
-        sleepSlider.lowerValue = selectedValues.sleep[0];
-        sleepSlider.higherValue = selectedValues.sleep[1];
-        sleepSlider.createSlider();
-        $("#minSleep").val(selectedValues.sleep[0]);
-        $("#maxSleep").val(selectedValues.sleep[1]);
+      class PremadeSettingsHandler {
+        constructor(settings) {
+          this.settings = settings;
+        }
+      
+        handleSettingsChange() {
+          const selectedSetting = $("#premadeSettings").val();
+          const selectedValues = this.settings[selectedSetting];
+      
+          this.updateSlider(brightnessRedSlider, selectedValues.brightnessRed, "#minBrightnessRed", "#maxBrightnessRed");
+          this.updateSlider(freqRedSlider, selectedValues.freqRed, "#minFreqRed", "#maxFreqRed");
+          this.updateSlider(brightnessGreenSlider, selectedValues.brightnessGreen, "#minBrightnessGreen", "#maxBrightnessGreen");
+          this.updateSlider(freqGreenSlider, selectedValues.freqGreen, "#minFreqGreen", "#maxFreqGreen");
+          this.updateSlider(brightnessBlueSlider, selectedValues.brightnessBlue, "#minBrightnessBlue", "#maxBrightnessBlue");
+          this.updateSlider(freqBlueSlider, selectedValues.freqBlue, "#minFreqBlue", "#maxFreqBlue");
+          this.updateSlider(sleepSlider, selectedValues.sleep, "#minSleep", "#maxSleep");
+        }
+      
+        updateSlider(slider, values, lowerInput, higherInput) {
+          slider.lowerValue = values[0];
+          slider.higherValue = values[1];
+          slider.createSlider();
+          $(lowerInput).val(values[0]);
+          $(higherInput).val(values[1]);
+        }
       }
-
-      // Handle premade settings selection change
-      $("#premadeSettings").change(handlePremadeSettings);
+      
+      const settings = {
+        redFlame: {
+          brightnessRed: [50, 255],
+          freqRed: [50, 500],
+          brightnessGreen: [0, 4],
+          freqGreen: [200, 2000],
+          brightnessBlue: [0, 2],
+          freqBlue: [100, 2000],
+          sleep: [0.07, 0.15]
+        },
+        greenFlame: {
+          brightnessRed: [0, 7],
+          freqRed: [200, 2000],
+          brightnessGreen: [50, 255],
+          freqGreen: [50, 500],
+          brightnessBlue: [0, 3],
+          freqBlue: [400, 800],
+          sleep: [0.07, 0.15]
+        },
+        blueFlame: {
+          brightnessRed: [0, 6],
+          freqRed: [200, 2000],
+          brightnessGreen: [0, 2],
+          freqGreen: [200, 2000],
+          brightnessBlue: [50, 255],
+          freqBlue: [50, 500],
+          sleep: [0.07, 0.15]
+        },
+      };
+      
+      const premadeSettingsHandler = new PremadeSettingsHandler(settings);
+      $("#premadeSettings").change(() => premadeSettingsHandler.handleSettingsChange());
     });
   </script>
 </head>
