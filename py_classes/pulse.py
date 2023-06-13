@@ -22,25 +22,3 @@ class Pulsing(LED):
 
     def stop(self):
         self.led.turn_off()
-
-###################### NEW CLASS #####################
-
-# class Pulsing():
-#     def __init__(self, pin):
-#         self.pin = pin
-
-#     def pulse(self, min_dutycycle, max_dutycycle, frequency, duration):
-#         start_time = time.time()
-#         while time.time() - start_time < duration:
-#             for dutycycle in range(min_dutycycle, max_dutycycle + 1):
-#                 self.set_dutycycle(dutycycle)
-#                 self.set_frequency(frequency)
-#                 time.sleep(0.01)
-#             for dutycycle in range(max_dutycycle, min_dutycycle - 1, -1):
-#                 self.set_dutycycle(dutycycle)
-#                 self.set_frequency(frequency)
-#                 time.sleep(0.01)
-
-#     def start_pulse(self, min_dutycycle, max_dutycycle, frequency, duration):
-#         self.pulse(min_dutycycle, max_dutycycle, frequency, duration)
-#         self.turn_off()
