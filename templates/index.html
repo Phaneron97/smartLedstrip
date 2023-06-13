@@ -23,16 +23,16 @@
     
         createSlider() {
           $(this.sliderContainer).slider({
-            min: this.minValue,
-            max: this.maxValue,
-            step: this.step,
-            values: [this.lowerValue, this.higherValue],
+            min: this.minValue, // minimum value of complete slider
+            max: this.maxValue, // maximum value of complete slider
+            step: this.step, // Resolution of the slider buttons
+            values: [this.lowerValue, this.higherValue], // Store both slider buttons inside values
             slide: (event, ui) => {
-              if (ui.values[0] >= ui.values[1]) {
-                return false;
+              if (ui.values[0] >= ui.values[1]) { // Check if lower value is higher than higher value
+                return false; // return false if true, because this is not allowed
               }
-              $(this.lowerInput).val(ui.values[0]);
-              $(this.higherInput).val(ui.values[1]);
+              $(this.lowerInput).val(ui.values[0]); // get lower value, store in lowerInput
+              $(this.higherInput).val(ui.values[1]); // get higher value, store in higherInput
             }
           });
           
@@ -60,6 +60,7 @@
         }
       }
       
+      // Create same slider but change lower input, higherinput and step resolution
       class BrightnessSlider extends Slider {
         constructor(sliderContainer, lowerInput, higherInput) {
           super(sliderContainer, lowerInput, higherInput, 0, 255, 1);
@@ -77,7 +78,8 @@
           super(sliderContainer, lowerInput, higherInput, 0, 1, 0.01);
         }
       }
-    
+      
+      // Create JS code behind the sliders in frontend
       const brightnessRedSlider = new BrightnessSlider("#brightnessRed", "#minBrightnessRed", "#maxBrightnessRed");
       brightnessRedSlider.createSlider();
     
@@ -99,15 +101,16 @@
       const sleepSlider = new SleepSlider("#sleepSlider", "#minSleep", "#maxSleep");
       sleepSlider.createSlider();
 
-      class PremadeSettingsHandler {
+      class PremadeFireplaceHandler {
         constructor(settings) {
           this.settings = settings;
         }
       
         handleSettingsChange() {
           const selectedSetting = $("#premadeSettings").val();
-          const selectedValues = this.settings[selectedSetting];
-      
+          const selectedValues = this.settings[selectedSetting]; // Get settings from setting list which user picked in frontend
+          
+          // Update all sliders and text inputs with values from selectedValues
           this.updateSlider(brightnessRedSlider, selectedValues.brightnessRed, "#minBrightnessRed", "#maxBrightnessRed");
           this.updateSlider(freqRedSlider, selectedValues.freqRed, "#minFreqRed", "#maxFreqRed");
           this.updateSlider(brightnessGreenSlider, selectedValues.brightnessGreen, "#minBrightnessGreen", "#maxBrightnessGreen");
@@ -116,7 +119,8 @@
           this.updateSlider(freqBlueSlider, selectedValues.freqBlue, "#minFreqBlue", "#maxFreqBlue");
           this.updateSlider(sleepSlider, selectedValues.sleep, "#minSleep", "#maxSleep");
         }
-      
+        
+        // Update slider and text inputs when a premade is used from values list which createSlider() creates
         updateSlider(slider, values, lowerInput, higherInput) {
           slider.lowerValue = values[0];
           slider.higherValue = values[1];
@@ -126,6 +130,7 @@
         }
       }
       
+      // 3 Premade settings for fireplace
       const settings = {
         redFlame: {
           brightnessRed: [50, 255],
@@ -156,8 +161,11 @@
         },
       };
       
-      const premadeSettingsHandler = new PremadeSettingsHandler(settings);
-      $("#premadeSettings").change(() => premadeSettingsHandler.handleSettingsChange());
+      // new instance of fireplace handler
+      const PremadeFireplaceHandler = new PremadeFireplaceHandler(settings);
+
+      // select html element premadeSettings and change its values with function from fireplace handler class
+      $("#premadeSettings").change(() => PremadeFireplaceHandler.handleSettingsChange());
     });
   </script>
 </head>
