@@ -98,6 +98,88 @@
     
       const sleepSlider = new SleepSlider("#sleepSlider", "#minSleep", "#maxSleep");
       sleepSlider.createSlider();
+
+      // premade fireplace settings
+      function handlePremadeSettings() {
+        const settings = {
+          redFlame: {
+            brightnessRed: [50, 255],
+            freqRed: [50, 500],
+            brightnessGreen: [0, 4],
+            freqGreen: [200, 2000],
+            brightnessBlue: [0, 2],
+            freqBlue: [100, 2000],
+            sleep: [0.07, 0.15]
+          },
+          greenFlame: {
+            brightnessRed: [0, 7],
+            freqRed: [200, 2000],
+            brightnessGreen: [50, 255],
+            freqGreen: [50, 500],
+            brightnessBlue: [0, 3],
+            freqBlue: [400, 800],
+            sleep: [0.07, 0.15]
+          },
+          blueFlame: {
+            brightnessRed: [0, 6],
+            freqRed: [200, 2000],
+            brightnessGreen: [0, 2],
+            freqGreen: [200, 2000],
+            brightnessBlue: [50, 255],
+            freqBlue: [50, 500],
+            sleep: [0.07, 0.15]
+          },
+        };
+
+        const selectedSetting = $("#premadeSettings").val();
+        const selectedValues = settings[selectedSetting];
+
+        // Update slider values with selected premade settings
+        brightnessRedSlider.lowerValue = selectedValues.brightnessRed[0];
+        brightnessRedSlider.higherValue = selectedValues.brightnessRed[1];
+        brightnessRedSlider.createSlider();
+        $("#minBrightnessRed").val(selectedValues.brightnessRed[0]);
+        $("#maxBrightnessRed").val(selectedValues.brightnessRed[1]);
+
+        freqRedSlider.lowerValue = selectedValues.freqRed[0];
+        freqRedSlider.higherValue = selectedValues.freqRed[1];
+        freqRedSlider.createSlider();
+        $("#minFreqRed").val(selectedValues.freqRed[0]);
+        $("#maxFreqRed").val(selectedValues.freqRed[1]);
+
+        brightnessGreenSlider.lowerValue = selectedValues.brightnessGreen[0];
+        brightnessGreenSlider.higherValue = selectedValues.brightnessGreen[1];
+        brightnessGreenSlider.createSlider();
+        $("#minBrightnessGreen").val(selectedValues.brightnessGreen[0]);
+        $("#maxBrightnessGreen").val(selectedValues.brightnessGreen[1]);
+
+        freqGreenSlider.lowerValue = selectedValues.freqGreen[0];
+        freqGreenSlider.higherValue = selectedValues.freqGreen[1];
+        freqGreenSlider.createSlider();
+        $("#minFreqGreen").val(selectedValues.freqGreen[0]);
+        $("#maxFreqGreen").val(selectedValues.freqGreen[1]);
+
+        brightnessBlueSlider.lowerValue = selectedValues.brightnessBlue[0];
+        brightnessBlueSlider.higherValue = selectedValues.brightnessBlue[1];
+        brightnessBlueSlider.createSlider();
+        $("#minBrightnessBlue").val(selectedValues.brightnessBlue[0]);
+        $("#maxBrightnessBlue").val(selectedValues.brightnessBlue[1]);
+
+        freqBlueSlider.lowerValue = selectedValues.freqBlue[0];
+        freqBlueSlider.higherValue = selectedValues.freqBlue[1];
+        freqBlueSlider.createSlider();
+        $("#minFreqBlue").val(selectedValues.freqBlue[0]);
+        $("#maxFreqBlue").val(selectedValues.freqBlue[1]);
+
+        sleepSlider.lowerValue = selectedValues.sleep[0];
+        sleepSlider.higherValue = selectedValues.sleep[1];
+        sleepSlider.createSlider();
+        $("#minSleep").val(selectedValues.sleep[0]);
+        $("#maxSleep").val(selectedValues.sleep[1]);
+      }
+
+      // Handle premade settings selection change
+      $("#premadeSettings").change(handlePremadeSettings);
     });
   </script>
 </head>
@@ -127,9 +209,9 @@
       </div>
       <div class="slider-container">
         <label for="minFreqRed">Min frequency:</label>
-        <input type="text" id="minFreqRed" name="minFreqRed" value="50">
+        <input type="text" id="minFreqRed" name="minFreqRed" value="100">
         <label for="maxFreqRed">Max frequency:</label>
-        <input type="text" id="maxFreqRed" name="maxFreqRed" value="200">
+        <input type="text" id="maxFreqRed" name="maxFreqRed" value="500">
         <div class="slider" id="freqRed"></div>
       </div>
     </div>
@@ -140,14 +222,14 @@
         <label for="minBrightnessGreen">Min brightness:</label>
         <input type="text" id="minBrightnessGreen" name="minBrightnessGreen" value="0">
         <label for="maxBrightnessGreen">Max brightness:</label>
-        <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="255">
+        <input type="text" id="maxBrightnessGreen" name="maxBrightnessGreen" value="3">
         <div class="slider" id="brightnessGreen"></div>
       </div>
       <div class="slider-container">
         <label for="minFreqGreen">Min frequency:</label>
-        <input type="text" id="minFreqGreen" name="minFreqGreen" value="50">
+        <input type="text" id="minFreqGreen" name="minFreqGreen" value="200">
         <label for="maxFreqGreen">Max frequency:</label>
-        <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="200">
+        <input type="text" id="maxFreqGreen" name="maxFreqGreen" value="2000">
         <div class="slider" id="freqGreen"></div>
       </div>
     </div>
@@ -158,14 +240,14 @@
         <label for="minBrightnessBlue">Min brightness:</label>
         <input type="text" id="minBrightnessBlue" name="minBrightnessBlue" value="0">
         <label for="maxBrightnessBlue">Max brightness:</label>
-        <input type="text" id="maxBrightnessBlue" name="maxBrightnessBlue" value="255">
+        <input type="text" id="maxBrightnessBlue" name="maxBrightnessBlue" value="2">
         <div class="slider" id="brightnessBlue"></div>
       </div>
       <div class="slider-container">
         <label for="minFreqBlue">Min frequency:</label>
-        <input type="text" id="minFreqBlue" name="minFreqBlue" value="50">
+        <input type="text" id="minFreqBlue" name="minFreqBlue" value="200">
         <label for="maxFreqBlue">Max frequency:</label>
-        <input type="text" id="maxFreqBlue" name="maxFreqBlue" value="200">
+        <input type="text" id="maxFreqBlue" name="maxFreqBlue" value="2000">
         <div class="slider" id="freqBlue"></div>
       </div>
     </div>
@@ -174,11 +256,21 @@
       <h3>Sleep settings</h3>
       <div class="slider-container">
         <label for="minSleep">Min sleep time:</label>
-        <input type="text" id="minSleep" name="minSleep" value="0">
+        <input type="text" id="minSleep" name="minSleep" value="0.1">
         <label for="maxSleep">Max sleep time:</label>
-        <input type="text" id="maxSleep" name="maxSleep" value="1">
+        <input type="text" id="maxSleep" name="maxSleep" value="0.5">
         <div class="slider" id="sleepSlider"></div>
       </div>
+    </div>
+
+    <div class="setting">
+      <h3>Premade Settings</h3>
+      <select id="premadeSettings">
+        <option value="">Select a setting</option>
+        <option value="redFlame">Rred flame</option>
+        <option value="greenFlame">Green flame</option>
+        <option value="blueFlame">Blue flame</option>
+      </select>
     </div>
 
     <button type="submit">Start fireplace</button>
