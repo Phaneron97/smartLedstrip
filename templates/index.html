@@ -162,10 +162,10 @@
       };
       
       // new instance of fireplace handler
-      const PremadeFireplaceHandler = new PremadeFireplaceHandler(settings);
+      const premadeFireplaceHandler = new PremadeFireplaceHandler(settings);
 
       // select html element premadeSettings and change its values with function from fireplace handler class
-      $("#premadeSettings").change(() => PremadeFireplaceHandler.handleSettingsChange());
+      $("#premadeSettings").change(() => premadeFireplaceHandler.handleSettingsChange());
     });
   </script>
 </head>
