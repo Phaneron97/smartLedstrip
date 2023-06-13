@@ -16,6 +16,6 @@ class ThreadManager(threading.Thread):
         self._running.clear()
         super().join(timeout)
 
-    def alive(self): # Check if thread is running\
+    def alive(self): # Check if thread is running
         print("current thread is alive")
         return super().is_alive()
